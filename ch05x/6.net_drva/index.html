@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch05x/6.net_drva/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>6.1 네트워크 I - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6.1 \ub124\ud2b8\uc6cc\ud06c I";
+        var mkdocs_page_input_path = "ch05x\\6.net_drva.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch05x/6.net_drva/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.1 네트워크 I</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 가상 네트워크 장치 커널 모듈 작성</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 커널 모듈 컴파일 &amp; 로드</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. 네트워크 장치 확인</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4">4. 패킷 송수신 테스트</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5">5. 모듈 언로드</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6">6. 인터럽터를 통한 수신코드</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">6. 드라이브 II</li>
+      <li class="breadcrumb-item active">6.1 네트워크 I</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="i">네트워크 드라이브 I</h1>
+<p>Snull(Simulated Null Network Device)처럼 **ifconfig로 등록되는 가상 네트워크 드라이브**를 커널 모듈로 작성하려면, **TUN/TAP 인터페이스 또는 가상 이더넷 장치(virtual ethernet device)를 활용한 커널 모듈**을 만들어야 합니다. 수행과정은 다음과 같습니다.</p>
+<ul>
+<li><code>snull</code> 같은 네트워크 인터페이스를 만들기 위해 <strong>가상 네트워크 장치 등록</strong></li>
+<li><code>ifconfig snull0 up</code>으로 활성화되도록 구현</li>
+<li>네트워크 패킷을 처리할 <strong>Net Device Driver</strong> 개발</li>
+</ul>
+<hr />
+<h3 id="1"><strong>1. 가상 네트워크 장치 커널 모듈 작성</strong></h3>
+<p>네트워크 장치를 생성하려면 **<code>struct net_device</code>를 사용하여 등록**해야 합니다.</p>
+<p><strong>네트워크 장치 드라이버 커널 모듈 (<code>snull.c</code>)</strong>
+<div class="highlight"><pre><span></span><code>#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/netdevice.h&gt;
+#include &lt;linux/etherdevice.h&gt;
+#include &lt;linux/skbuff.h&gt;
+#include &lt;linux/ip.h&gt;
+#include &lt;linux/tcp.h&gt;
+#include &lt;linux/udp.h&gt;
+
+static struct net_device *snull_dev;
+
+static int snull_open(struct net_device *dev) {
+    printk(KERN_INFO &quot;[snull] Device opened\n&quot;);
+    netif_start_queue(dev);
+    return 0;
+}
+
+static int snull_stop(struct net_device *dev) {
+    printk(KERN_INFO &quot;[snull] Device stopped\n&quot;);
+    netif_stop_queue(dev);
+    return 0;
+}
+
+static netdev_tx_t snull_xmit(struct sk_buff *skb, struct net_device *dev) {
+    printk(KERN_INFO &quot;[snull] Transmitting packet\n&quot;);
+    dev_kfree_skb(skb);
+    return NETDEV_TX_OK;
+}
+
+static struct net_device_ops snull_ops = {
+    .ndo_open = snull_open,
+    .ndo_stop = snull_stop,
+    .ndo_start_xmit = snull_xmit,
+};
+
+static void snull_setup(struct net_device *dev) {
+    dev-&gt;netdev_ops = &amp;snull_ops;
+    ether_setup(dev);
+    dev-&gt;flags |= IFF_NOARP;
+    dev-&gt;features |= NETIF_F_HW_CSUM;
+}
+
+static int __init snull_init(void) {
+    int ret;
+    snull_dev = alloc_netdev(0, &quot;snull0&quot;, NET_NAME_UNKNOWN, snull_setup);
+    if (!snull_dev) {
+        printk(KERN_ERR &quot;[snull] Failed to allocate network device\n&quot;);
+        return -ENOMEM;
+    }
+
+    ret = register_netdev(snull_dev);
+    if (ret) {
+        printk(KERN_ERR &quot;[snull] Failed to register network device\n&quot;);
+        free_netdev(snull_dev);
+        return ret;
+    }
+
+    printk(KERN_INFO &quot;[snull] Network device registered as snull0\n&quot;);
+    return 0;
+}
+
+static void __exit snull_exit(void) {
+    unregister_netdev(snull_dev);
+    free_netdev(snull_dev);
+    printk(KERN_INFO &quot;[snull] Network device unregistered\n&quot;);
+}
+
+module_init(snull_init);
+module_exit(snull_exit);
+
+MODULE_LICENSE(&quot;GPL&quot;);
+MODULE_AUTHOR(&quot;Your Name&quot;);
+MODULE_DESCRIPTION(&quot;Simulated Null Network Device&quot;);
+</code></pre></div></p>
+<hr />
+<h3 id="2"><strong>2. 커널 모듈 컴파일 &amp; 로드</strong></h3>
+<p>1) Makefile 작성</p>
+<div class="highlight"><pre><span></span><code><span class="nv">obj-m</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>snull.o
+<span class="nv">KDIR</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build
+<span class="nv">PWD</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>
+
+<span class="nf">all</span><span class="o">:</span>
+<span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>clean
+</code></pre></div>
+<p>2) 빌드 &amp; 모듈 로드
+<div class="highlight"><pre><span></span><code>make
+sudo<span class="w"> </span>insmod<span class="w"> </span>snull.ko
+</code></pre></div></p>
+<p>커널 메시지:
+<div class="highlight"><pre><span></span><code>[30894.610001] [snull] Network device registered as snull0
+[30894.629816] [snull] Device opened
+</code></pre></div></p>
+<hr />
+<h3 id="3"><strong>3. 네트워크 장치 확인</strong></h3>
+<p>1) <code>ifconfig</code> 또는 <code>ip link</code> 명령어로 확인</p>
+<p><div class="highlight"><pre><span></span><code>ifconfig<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>snull
+</code></pre></div>
+또는
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>snull0
+</code></pre></div>
+출력 예시:
+<div class="highlight"><pre><span></span><code>snull0: flags=4291&lt;UP,BROADCAST,RUNNING,NOARP,MULTICAST&gt;  mtu 1500
+        ether 00:00:00:00:00:00  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+usb0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet6 fe80::8c09:24ff:feef:868f  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether 8e:09:24:ef:86:8f  txqueuelen 1000  (Ethernet)
+        RX packets 6211  bytes 1455096 (1.4 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 11808  bytes 2966592 (2.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.11.51  netmask 255.255.255.0  broadcast 192.168.11.255
+        inet6 fe80::dca4:f5bc:5368:be80  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether e8:fb:1c:34:59:35  txqueuelen 1000  (Ethernet)
+        RX packets 19222  bytes 4081799 (4.0 MB)
+        RX errors 0  dropped 11  overruns 0  frame 0
+        TX packets 13752  bytes 2645406 (2.6 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre></div></p>
+<p>2) 네트워크 인터페이스 활성화**
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ifconfig<span class="w"> </span>snull0<span class="w"> </span>up
+</code></pre></div>
+또는
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>snull0<span class="w"> </span>up
+</code></pre></div></p>
+<hr />
+<h3 id="4">4. 패킷 송수신 테스트</h3>
+<p>1) Ping 테스트</p>
+<p><div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-I<span class="w"> </span>snull0<span class="w"> </span><span class="m">8</span>.8.8.8
+</code></pre></div>
+(<code>snull_xmit()</code> 함수에서 패킷을 처리하므로 로그가 출력됨)</p>
+<div class="highlight"><pre><span></span><code>[30894.610001] [snull] Network device registered as snull0
+[30894.629816] [snull] Device opened
+[31176.203143] [snull] Transmitting packet
+[31177.230673] [snull] Transmitting packet
+[31178.254650] [snull] Transmitting packet
+[31179.278575] [snull] Transmitting packet
+[31180.302523] [snull] Transmitting packet
+[31181.326497] [snull] Transmitting packet
+[31182.350463] [snull] Transmitting packet
+[31183.374425] [snull] Transmitting packet
+[31184.398405] [snull] Transmitting packet
+[31185.422361] [snull] Transmitting packet
+[31186.446329] [snull] Transmitting packet
+[31187.470303] [snull] Transmitting packet
+[31188.494283] [snull] Transmitting packet
+[31189.518253] [snull] Transmitting packet
+</code></pre></div>
+<hr />
+<h3 id="5">5. 모듈 언로드</h3>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ifconfig<span class="w"> </span>snull0<span class="w"> </span>down
+sudo<span class="w"> </span>rmmod<span class="w"> </span>snull
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[31334.002313] [snull] Device stopped
+[31346.933751] [snull] Network device unregistered
+</code></pre></div></p>
+<hr />
+<h3 id="6">6. 인터럽터를 통한 수신코드</h3>
+<p>외부로 부터 패킷이 수신되면, 수신된 패킷은 인터럽트를 통해 내부로 전달 된다.</p>
+<div class="highlight"><pre><span></span><code>#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/netdevice.h&gt;
+#include &lt;linux/etherdevice.h&gt;
+#include &lt;linux/skbuff.h&gt;
+#include &lt;linux/ip.h&gt;
+#include &lt;linux/tcp.h&gt;
+#include &lt;linux/udp.h&gt;
+#include &lt;linux/interrupt.h&gt;
+
+static struct net_device *snull_dev;
+
+static irqreturn_t snull_interrupt(int irq, void *dev_id) {
+    struct net_device *dev = (struct net_device *)dev_id;
+    struct sk_buff *skb;
+    struct iphdr *iph;
+
+    skb = netdev_alloc_skb(dev, 1500);
+
+    /* 하드웨어 수신 코드 추가 */
+
+    /***********************/
+
+
+    if (!skb)
+        return IRQ_HANDLED;
+
+    skb_put(skb, 1500);
+    skb-&gt;protocol = eth_type_trans(skb, dev);
+    iph = ip_hdr(skb);
+
+    printk(KERN_INFO &quot;[snull] Packet received via interrupt\n&quot;);
+    netif_rx(skb);
+
+    return IRQ_HANDLED;
+}
+
+
+static int snull_open(struct net_device *dev) {
+    int ret;
+
+    printk(KERN_INFO &quot;[snull] Device opened\n&quot;);
+    netif_start_queue(dev);
+
+    ret = request_irq(dev-&gt;irq, snull_interrupt, 0, &quot;snull&quot;, dev);
+    if (ret) {
+        pr_err(&quot;snull: Failed to request IRQ %d, error %d\n&quot;, dev-&gt;irq, ret);
+        return ret;
+    }
+    return 0;
+}
+
+
+static int snull_stop(struct net_device *dev) {
+    printk(KERN_INFO &quot;[snull] Device stopped\n&quot;);
+    netif_stop_queue(dev);
+    free_irq(dev-&gt;irq, dev);
+    return 0;
+}
+
+static netdev_tx_t snull_xmit(struct sk_buff *skb, struct net_device *dev) {
+    printk(KERN_INFO &quot;[snull] Transmitting packet\n&quot;);
+    dev_kfree_skb(skb);
+    return NETDEV_TX_OK;
+}
+
+static struct net_device_ops snull_ops = {
+    .ndo_open = snull_open,
+    .ndo_stop = snull_stop,
+    .ndo_start_xmit = snull_xmit,
+};
+
+static void snull_setup(struct net_device *dev) {
+    dev-&gt;netdev_ops = &amp;snull_ops;
+    ether_setup(dev);
+    dev-&gt;flags |= IFF_NOARP;
+    dev-&gt;features |= NETIF_F_HW_CSUM;
+    dev-&gt;irq = 10;
+}
+
+static int __init snull_init(void) {
+    int ret;
+    snull_dev = alloc_netdev(0, &quot;snull0&quot;, NET_NAME_UNKNOWN, snull_setup);
+    if (!snull_dev) {
+        printk(KERN_ERR &quot;[snull] Failed to allocate network device\n&quot;);
+        return -ENOMEM;
+    }
+
+    ret = register_netdev(snull_dev);
+    if (ret) {
+        printk(KERN_ERR &quot;[snull] Failed to register network device\n&quot;);
+        free_netdev(snull_dev);
+        return ret;
+    }
+
+    printk(KERN_INFO &quot;[snull] Network device registered as snull0\n&quot;);
+    return 0;
+}
+
+static void __exit snull_exit(void) {
+    unregister_netdev(snull_dev);
+    free_netdev(snull_dev);
+    printk(KERN_INFO &quot;[snull] Network device unregistered\n&quot;);
+}
+
+module_init(snull_init);
+module_exit(snull_exit);
+
+MODULE_LICENSE(&quot;GPL&quot;);
+MODULE_AUTHOR(&quot;Your Name&quot;);
+MODULE_DESCRIPTION(&quot;Simulated Null Network Device&quot;);
+</code></pre></div>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5.mmap/" class="btn btn-neutral float-left" title="6.1 mmap"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../7.net_drvb/" class="btn btn-neutral float-right" title="6.1 네트워크 II">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5.mmap/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../7.net_drvb/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

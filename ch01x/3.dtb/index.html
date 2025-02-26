@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch01x/3.dtb/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>2.3 dtb - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "2.3 dtb";
+        var mkdocs_page_input_path = "ch01x\\3.dtb.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch01x/3.dtb/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">2.3 dtb</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-dtbdevice-tree-blob">1. DTB(Device Tree Blob) 개요</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dtb">DTB의 주요 기능</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-dtb">2. DTB 변환 과정 예제</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dts">예제: DTS 파일</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-dts-dtb">3. DTS → DTB 변환 (컴파일)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">명령어</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">명령어 설명</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-dtb-dts">4. DTB → DTS 변환 (역컴파일)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">명령어</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">명령어 설명</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-dts">5. 변환된 DTS 예제</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6">6. 최종 정리</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-dtsdevice-tree-source">1. DTS(Device Tree Source) 작성</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-dtb-dts">2. DTB → DTS 변환 (역컴파일)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-dts-dtb_1">3. DTS → DTB 변환 (컴파일)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2. DTs</li>
+      <li class="breadcrumb-item active">2.3 dtb</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dtbdevice-tree-blob">**DTB(Device Tree Blob)</h1>
+<h3 id="1-dtbdevice-tree-blob"><strong>1. DTB(Device Tree Blob) 개요</strong></h3>
+<p><strong>DTB(Device Tree Blob)**는 **Device Tree Source(DTS)</strong> 파일을 바이너리 형태로 변환한 파일입니다.<br />
+리눅스 커널은 DTB 파일을 로드하여 하드웨어 구성을 이해하고 적절한 드라이버를 로드합니다.</p>
+<h4 id="dtb"><strong>DTB의 주요 기능</strong></h4>
+<ol>
+<li><strong>하드웨어 정보를 커널에 제공</strong>  </li>
+<li>CPU, 메모리, GPIO, SPI, I2C 등의 장치를 정의.</li>
+<li>
+<p>커널이 이를 읽고 해당 드라이버를 로드.</p>
+</li>
+<li>
+<p><strong>커널과 하드웨어의 분리</strong>  </p>
+</li>
+<li>커널 코드와 하드웨어 구성을 분리하여 유지보수성을 높임.</li>
+<li>
+<p>같은 커널을 사용하면서도 하드웨어 구성 변경이 가능.</p>
+</li>
+<li>
+<p><strong>빠른 처리 가능</strong>  </p>
+</li>
+<li>바이너리 형식이므로 커널이 효율적으로 파싱하여 적용할 수 있음.</li>
+</ol>
+<hr />
+<h3 id="2-dtb"><strong>2. DTB 변환 과정 예제</strong></h3>
+<p>DTB는 사람이 읽기 어려운 바이너리 파일이므로, **DTS(Device Tree Source)**라는 사람이 읽기 쉬운 형식으로 먼저 정의한 후 DTB로 변환합니다.</p>
+<h4 id="dts"><strong>예제: DTS 파일</strong></h4>
+<p>다음은 <code>my_led.dts</code>라는 이름의 Device Tree Source(DTS) 파일입니다.<br />
+이 파일은 GPIO 21번 핀에 연결된 LED를 정의합니다.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">my_led</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my_led_run&quot;</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 호환되는 장치 유형 */</span>
+<span class="w">        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my_led&quot;</span><span class="p">;</span><span class="w">           </span><span class="cm">/* LED 이름 */</span>
+<span class="w">        </span><span class="n">pin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">21</span><span class="o">&gt;</span><span class="p">;</span><span class="w">                 </span><span class="cm">/* GPIO 핀 번호 */</span>
+<span class="w">        </span><span class="n">active_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">         </span><span class="cm">/* 활성화 상태 */</span>
+<span class="w">        </span><span class="n">default_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;off&quot;</span><span class="p">;</span><span class="w">      </span><span class="cm">/* 기본 상태 */</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="3-dts-dtb"><strong>3. DTS → DTB 변환 (컴파일)</strong></h3>
+<p>DTS 파일을 <strong>Device Tree Blob(DTB)</strong> 파일로 변환하려면 <code>dtc(Device Tree Compiler)</code>를 사용합니다.</p>
+<h4 id="_1"><strong>명령어</strong></h4>
+<div class="highlight"><pre><span></span><code>dtc<span class="w"> </span>-I<span class="w"> </span>dts<span class="w"> </span>-O<span class="w"> </span>dtb<span class="w"> </span>-o<span class="w"> </span>my_led.dtb<span class="w"> </span>my_led.dts
+</code></pre></div>
+<h4 id="_2"><strong>명령어 설명</strong></h4>
+<ul>
+<li><code>dtc</code> : Device Tree Compiler, DTS를 DTB로 변환하는 도구.</li>
+<li><code>-I dts</code> : 입력 파일 형식을 DTS로 지정.</li>
+<li><code>-O dtb</code> : 출력 파일 형식을 DTB로 지정 (바이너리 변환).</li>
+<li><code>-o my_led.dtb</code> : 변환된 파일명을 <code>my_led.dtb</code>로 저장.</li>
+</ul>
+<hr />
+<h3 id="4-dtb-dts"><strong>4. DTB → DTS 변환 (역컴파일)</strong></h3>
+<p>DTB 파일을 사람이 읽을 수 있는 DTS 파일로 변환하려면 **역컴파일**을 수행합니다.</p>
+<h4 id="_3"><strong>명령어</strong></h4>
+<div class="highlight"><pre><span></span><code>dtc<span class="w"> </span>-I<span class="w"> </span>dtb<span class="w"> </span>-O<span class="w"> </span>dts<span class="w"> </span>-o<span class="w"> </span>my_led.dts<span class="w"> </span>my_led.dtb
+</code></pre></div>
+<h4 id="_4"><strong>명령어 설명</strong></h4>
+<ul>
+<li><code>-I dtb</code> : 입력 파일이 DTB 형식임을 지정.</li>
+<li><code>-O dts</code> : 출력 파일을 DTS 형식으로 변환.</li>
+<li><code>-o my_led.dts</code> : 변환된 DTS 파일명을 <code>my_led.dts</code>로 저장.</li>
+</ul>
+<hr />
+<h3 id="5-dts"><strong>5. 변환된 DTS 예제</strong></h3>
+<p>위의 명령어를 실행하면 <code>my_led.dts</code> 파일이 다음과 같은 형태로 생성됩니다.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="nf">my_led</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my_led_run&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;my_led&quot;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">pin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x15</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">active_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">default_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;off&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="6"><strong>6. 최종 정리</strong></h3>
+<h4 id="1-dtsdevice-tree-source">1. <strong>DTS(Device Tree Source) 작성</strong></h4>
+<ul>
+<li>사람이 읽기 쉬운 하드웨어 정의 파일.</li>
+</ul>
+<h4 id="2-dtb-dts">2. <strong>DTB → DTS 변환 (역컴파일)</strong></h4>
+<div class="highlight"><pre><span></span><code>dtc<span class="w"> </span>-I<span class="w"> </span>dtb<span class="w"> </span>-O<span class="w"> </span>dts<span class="w"> </span>-o<span class="w"> </span>my_led.dts<span class="w"> </span>my_led.dtbo
+</code></pre></div>
+<ul>
+<li>DTB를 다시 DTS로 변환하여 내용을 확인하고 수정 가능.</li>
+</ul>
+<h4 id="3-dts-dtb_1">3. <strong>DTS → DTB 변환 (컴파일)</strong></h4>
+<div class="highlight"><pre><span></span><code>dtc<span class="w"> </span>-I<span class="w"> </span>dts<span class="w"> </span>-O<span class="w"> </span>dtb<span class="w"> </span>-o<span class="w"> </span>my_led.dtb<span class="w"> </span>my_led.dts
+</code></pre></div>
+<ul>
+<li>DTB(Device Tree Blob)로 변환하여 커널이 사용할 수 있도록 함.</li>
+</ul>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../2.dts_compile/" class="btn btn-neutral float-left" title="2.2 dts 컴파일"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../4.dtbo/" class="btn btn-neutral float-right" title="2.4 dtbo">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../2.dts_compile/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../4.dtbo/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

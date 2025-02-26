@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch05x/3.chr_drvc/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>6.1 문자드라이브 III - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "6.1 \ubb38\uc790\ub4dc\ub77c\uc774\ube0c III";
+        var mkdocs_page_input_path = "ch05x\\3.chr_drvc.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch05x/3.chr_drvc/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">6.1 문자드라이브 III</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-struct-file_operations">1. struct file_operations 설명</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">기본적인 구조</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#2">2. 추가 가능한 파일 연산자</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-file_operations">3. 확장된 file_operations 구조</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-dtb">4. 플랫폼 디바이스를 통한 자동 등록 (DTB 사용)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5">5. 디바이스 트리 노드 작성</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6">6. 플랫폼 드라이버 코드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7">7. 결과 및 동작 방식</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">6. 드라이브 II</li>
+      <li class="breadcrumb-item active">6.1 문자드라이브 III</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="iii">문자 드라이브 III</h1>
+<h3 id="1-struct-file_operations"><strong>1. <code>struct file_operations</code> 설명</strong></h3>
+<p><code>struct file_operations</code>는 **리눅스 커널의 캐릭터 디바이스 드라이버**에서 파일과 관련된 시스템 콜을 처리하는 함수 포인터 구조체입니다. 이 구조체를 통해 <code>open()</code>, <code>read()</code>, <code>write()</code> 같은 동작을 구현할 수 있습니다.</p>
+<h2 id="_1"><strong>기본적인 구조</strong></h2>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file_operations</span><span class="w"> </span><span class="n">fops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span><span class="w">  </span><span class="c1">// 현재 모듈 소유권 설정</span>
+<span class="w">    </span><span class="p">.</span><span class="n">open</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_open</span><span class="p">,</span><span class="w">       </span><span class="c1">// 디바이스 파일이 열릴 때 실행</span>
+<span class="w">    </span><span class="p">.</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_release</span><span class="p">,</span><span class="w"> </span><span class="c1">// 디바이스 파일이 닫힐 때 실행</span>
+<span class="w">    </span><span class="p">.</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_read</span><span class="p">,</span><span class="w">       </span><span class="c1">// 사용자 공간에서 데이터를 읽을 때 실행</span>
+<span class="w">    </span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_write</span><span class="p">,</span><span class="w">     </span><span class="c1">// 사용자 공간에서 데이터를 쓸 때 실행</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="2"><strong>2. 추가 가능한 파일 연산자</strong></h3>
+<p>아래 함수들을 추가하여 **디바이스의 기능을 확장**할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>함수명</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.llseek</code></td>
+<td>파일의 읽기/쓰기 위치를 변경 (파일 포인터 이동)</td>
+</tr>
+<tr>
+<td><code>.mmap</code></td>
+<td>사용자 공간과 커널 공간 간 메모리 매핑</td>
+</tr>
+<tr>
+<td><code>.unlocked_ioctl</code></td>
+<td>IOCTL 시스템 콜을 처리하여 장치에 명령 전달</td>
+</tr>
+<tr>
+<td><code>.poll</code></td>
+<td><code>select()</code>, <code>poll()</code>, <code>epoll()</code> 시스템 콜을 위한 이벤트 감지</td>
+</tr>
+<tr>
+<td><code>.fasync</code></td>
+<td>비동기 알림 설정</td>
+</tr>
+<tr>
+<td><code>.compat_ioctl</code></td>
+<td>32비트 애플리케이션의 IOCTL 요청 처리 (64비트 커널에서 사용)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-file_operations"><strong>3. 확장된 <code>file_operations</code> 구조</strong></h3>
+<p>추가적인 기능을 포함한 예제입니다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">my_ioctl</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: IOCTL Command Received: %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cmd</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file_operations</span><span class="w"> </span><span class="n">fops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">open</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_open</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_release</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_read</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_write</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">llseek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_llseek</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">unlocked_ioctl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_ioctl</span><span class="p">,</span><span class="w"> </span><span class="c1">// IOCTL 처리</span>
+<span class="w">    </span><span class="p">.</span><span class="n">poll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_poll</span><span class="p">,</span><span class="w">            </span><span class="c1">// select(), poll() 등 지원</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="4-dtb"><strong>4. 플랫폼 디바이스를 통한 자동 등록 (DTB 사용)</strong></h3>
+<p>Jetson Orin Nano에서 **디바이스 트리(DTB)**를 이용하여 문자 디바이스를 자동 등록하는 방법을 설명합니다.</p>
+<p>1) 디바이스 트리(DTB)란?**
+- 하드웨어 정보를 설명하는 파일 (<code>.dts</code>)
+- 커널 부팅 시 장치 정보를 읽고 자동으로 드라이버와 매칭</p>
+<hr />
+<h3 id="5"><strong>5. 디바이스 트리 노드 작성</strong></h3>
+<p>Jetson Orin Nano의 **디바이스 트리(DTB)**에 문자 디바이스를 등록하려면 <code>dts</code> 파일을 수정해야 합니다.</p>
+<p>1) <code>mychar_device.dts</code> 예제
+아래와 같은 디바이스 트리 노드를 추가합니다.
+<div class="highlight"><pre><span></span><code><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">mychar</span><span class="p">:</span><span class="w"> </span><span class="nf">mychar</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nvidia,mychar&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 드라이버와 매칭할 문자열</span>
+<span class="w">        </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">;</span><span class="w">           </span><span class="c1">// 장치 메모리 영역</span>
+<span class="w">        </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;okay&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<strong>설명</strong></p>
+<ul>
+<li><code>compatible = "nvidia,mychar"</code>: 드라이버와 매칭할 문자열</li>
+<li><code>reg = &lt;0x0 0x1000&gt;</code>: I/O 메모리 영역</li>
+<li><code>status = "okay"</code>: 활성화 상태</li>
+</ul>
+<hr />
+<h3 id="6"><strong>6. 플랫폼 드라이버 코드</strong></h3>
+<p>플랫폼 드라이버를 작성하여 DTB에 등록된 디바이스를 자동 매칭하도록 합니다.</p>
+<p>1) <code>char_platform_driver.c</code> - 플랫폼 드라이버 코드
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/platform_device.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/fs.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/cdev.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/uaccess.h&gt;</span>
+
+<span class="cp">#define DEVICE_NAME &quot;mychar&quot;</span>
+<span class="cp">#define MY_MAJOR 240</span>
+<span class="cp">#define BUF_SIZE 1024</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">cdev</span><span class="w"> </span><span class="n">my_cdev</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">dev_t</span><span class="w"> </span><span class="n">dev_num</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">class</span><span class="w"> </span><span class="o">*</span><span class="n">my_class</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">device</span><span class="w"> </span><span class="o">*</span><span class="n">my_device</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">device_buffer</span><span class="p">[</span><span class="n">BUF_SIZE</span><span class="p">];</span>
+
+<span class="cm">/* Open function */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">my_open</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">inode</span><span class="w"> </span><span class="o">*</span><span class="n">inode</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Device opened</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Release function */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">my_release</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">inode</span><span class="w"> </span><span class="o">*</span><span class="n">inode</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Device closed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Read function */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">my_read</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="n">user_buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">loff_t</span><span class="w"> </span><span class="o">*</span><span class="n">offset</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">copy_to_user</span><span class="p">(</span><span class="n">user_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">device_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EFAULT</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Read %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Write function */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">my_write</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w"> </span><span class="o">*</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="n">user_buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">loff_t</span><span class="w"> </span><span class="o">*</span><span class="n">offset</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bytes_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">copy_from_user</span><span class="p">(</span><span class="n">device_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">user_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_write</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">EFAULT</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Written %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_write</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bytes_write</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* File operations */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">file_operations</span><span class="w"> </span><span class="n">fops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">THIS_MODULE</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">open</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_open</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">release</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_release</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_read</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_write</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="cm">/* Probe function: 디바이스가 등록될 때 실행 */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">mychar_probe</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">pdev</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Platform device detected!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">dev_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MKDEV</span><span class="p">(</span><span class="n">MY_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">register_chrdev_region</span><span class="p">(</span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_NAME</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_ALERT</span><span class="w"> </span><span class="s">&quot;Failed to register device</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">cdev_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_cdev</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fops</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cdev_add</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_cdev</span><span class="p">,</span><span class="w"> </span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">my_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">class_create</span><span class="p">(</span><span class="n">THIS_MODULE</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_NAME</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">my_class</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cdev_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_cdev</span><span class="p">);</span>
+<span class="w">        </span><span class="n">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">PTR_ERR</span><span class="p">(</span><span class="n">my_class</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">my_device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device_create</span><span class="p">(</span><span class="n">my_class</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">DEVICE_NAME</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">my_device</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">class_destroy</span><span class="p">(</span><span class="n">my_class</span><span class="p">);</span>
+<span class="w">        </span><span class="n">cdev_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_cdev</span><span class="p">);</span>
+<span class="w">        </span><span class="n">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">PTR_ERR</span><span class="p">(</span><span class="n">my_device</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Remove function */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">mychar_remove</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">pdev</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">device_destroy</span><span class="p">(</span><span class="n">my_class</span><span class="p">,</span><span class="w"> </span><span class="n">dev_num</span><span class="p">);</span>
+<span class="w">    </span><span class="n">class_destroy</span><span class="p">(</span><span class="n">my_class</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cdev_del</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_cdev</span><span class="p">);</span>
+<span class="w">    </span><span class="n">unregister_chrdev_region</span><span class="p">(</span><span class="n">dev_num</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;mychar: Platform device removed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Platform driver structure */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">of_device_id</span><span class="w"> </span><span class="n">mychar_dt_ids</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="n">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nvidia,mychar&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">of</span><span class="p">,</span><span class="w"> </span><span class="n">mychar_dt_ids</span><span class="p">);</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_driver</span><span class="w"> </span><span class="n">mychar_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">probe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mychar_probe</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">remove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mychar_remove</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEVICE_NAME</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">of_match_table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mychar_dt_ids</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">};</span>
+
+<span class="n">module_platform_driver</span><span class="p">(</span><span class="n">mychar_driver</span><span class="p">);</span>
+
+<span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span>
+<span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Jetson Orin Nano Dev&quot;</span><span class="p">);</span>
+<span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;Character Device Driver with Platform Device&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<hr />
+<h3 id="7"><strong>7. 결과 및 동작 방식</strong></h3>
+<ol>
+<li><strong>커널 부팅 시</strong> → DTB에서 <code>"nvidia,mychar"</code>을 검색</li>
+<li><strong>매칭된 경우</strong> → <code>mychar_probe()</code> 실행</li>
+<li><strong>자동으로 <code>/dev/mychar</code> 생성</strong></li>
+<li><strong>사용자가 <code>open()</code>, <code>read()</code>, <code>write()</code> 실행 가능</strong></li>
+</ol>
+<p>이제 Jetson Orin Nano에서 DTB 기반으로 문자 디바이스를 자동으로 등록하고 사용할 수 있습니다. 🚀</p>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../2.chr_drvb/" class="btn btn-neutral float-left" title="6.1 문자드라이브 II"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../4.blk_drv/" class="btn btn-neutral float-right" title="6.1 블록드라이브">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../2.chr_drvb/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../4.blk_drv/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

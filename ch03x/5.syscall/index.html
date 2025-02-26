@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch03x/5.syscall/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>4.5 시스템콜 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4.5 \uc2dc\uc2a4\ud15c\ucf5c";
+        var mkdocs_page_input_path = "ch03x\\5.syscall.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch03x/5.syscall/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.5 시스템콜</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 구현항목</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 시험테스트</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">4. 커널</li>
+      <li class="breadcrumb-item active">4.5 시스템콜</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">시스템콜</h1>
+<p>리눅스에서 시스템콜을 직접 호출하여 커널 기능을 사용하는 코드를 작성할 수 있습니다. 일반적으로 시스템콜은 C 언어를 통해 호출하며, syscall() 함수를 사용하거나 인라인 어셈블리를 통해 직접 호출할 수 있습니다.</p>
+<h3 id="1"><strong>1.  구현항목</strong></h3>
+<p>1) 시스템 콜 함수 구현</p>
+<div class="highlight"><pre><span></span><code>asmlinkage long __arm64_sys_my_systemcall(const struct pt_regs *regs)
+{
+    int a, b, result;
+    printk(KERN_INFO &quot;my_systemcall invoked\n&quot;);
+
+    // Your custom logic here
+    a = regs-&gt;regs[0]; // First argument (a)
+    b = regs-&gt;regs[1]; // Second argument (b)
+    result = a * b;    // Multiply a and b
+
+    printk(KERN_INFO &quot;my_systemcall invoked: a = %d, b = %d, result = %d\n&quot;, a, b, result);
+
+    return result; // Return the result
+
+}
+</code></pre></div>
+<ul>
+<li>ARM64 아키텍처에서는 시스템 콜의 첫 6개 인자가 x0부터 x5 레지스터를 통해 전달됩니다. 이는 pt_regs 구조체의 regs[0]부터 regs[5]에 해당합니다.</li>
+</ul>
+<p>2) 시스템 콜 데이블 업데이트</p>
+<div class="highlight"><pre><span></span><code>/*
+ * Wrappers to pass the pt_regs argument.
+ */
+#define __arm64_sys_personality     __arm64_sys_arm64_personality
+
+#undef __SYSCALL
+#define __SYSCALL(nr, sym)  asmlinkage long __arm64_##sym(const struct pt_regs *);
+#include &lt;asm/unistd.h&gt;
+
+#undef __SYSCALL
+#define __SYSCALL(nr, sym)  [nr] = __arm64_##sym,
+
+
+const syscall_fn_t sys_call_table[__NR_syscalls] = {
+    [0 ... __NR_syscalls - 1] = __arm64_sys_ni_syscall,
+
+#include &lt;asm/unistd.h&gt;
+    [440] = __arm64_sys_my_systemcall,
+};
+</code></pre></div>
+<h3 id="2"><strong>2. 시험테스트</strong></h3>
+<p>1) 소스 적용</p>
+<p>파일명 : arch/arm64/kernel/sys.c
+해당 파일 안에 적용할 프로그램 코드를 추가한다. </p>
+<div class="highlight"><pre><span></span><code>// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * AArch64-specific system calls implementation
+ *
+ * Copyright (C) 2012 ARM Ltd.
+ * Author: Catalin Marinas &lt;catalin.marinas@arm.com&gt;
+ */
+
+#include &lt;linux/compiler.h&gt;
+#include &lt;linux/errno.h&gt;
+#include &lt;linux/fs.h&gt;
+#include &lt;linux/mm.h&gt;
+#include &lt;linux/export.h&gt;
+#include &lt;linux/sched.h&gt;
+#include &lt;linux/slab.h&gt;
+#include &lt;linux/syscalls.h&gt;
+
+#include &lt;asm/cpufeature.h&gt;
+#include &lt;asm/syscall.h&gt;
+
+
+asmlinkage long sys_my_systemcall(void) {
+    printk(KERN_INFO &quot;my_systemcall invoked\n&quot;);
+    // Your custom logic here
+    return 1;
+}
+
+asmlinkage long __arm64_sys_my_systemcall(const struct pt_regs *regs)
+{
+    int a, b, result;
+    printk(KERN_INFO &quot;my_systemcall invoked\n&quot;);
+
+    // Your custom logic here
+    a = regs-&gt;regs[0]; // First argument (a)
+    b = regs-&gt;regs[1]; // Second argument (b)
+    result = a * b;    // Multiply a and b
+
+    printk(KERN_INFO &quot;my_systemcall invoked: a = %d, b = %d, result = %d\n&quot;, a, b, result);
+
+    return result; // Return the result
+    return 2;
+}
+
+~~~
+
+/*
+ * Wrappers to pass the pt_regs argument.
+ */
+#define __arm64_sys_personality     __arm64_sys_arm64_personality
+
+#undef __SYSCALL
+#define __SYSCALL(nr, sym)  asmlinkage long __arm64_##sym(const struct pt_regs *);
+#include &lt;asm/unistd.h&gt;
+
+#undef __SYSCALL
+#define __SYSCALL(nr, sym)  [nr] = __arm64_##sym,
+
+
+const syscall_fn_t sys_call_table[__NR_syscalls] = {
+    [0 ... __NR_syscalls - 1] = __arm64_sys_ni_syscall,
+
+#include &lt;asm/unistd.h&gt;
+    [440] = __arm64_sys_my_systemcall,
+};
+</code></pre></div>
+<p>2) 케널 재 컴파일 후 업로드</p>
+<p><div class="highlight"><pre><span></span><code>make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} -j8 --output-sync=target V=1 Image
+</code></pre></div>
+jetson 보드의 <code>/boot/Image</code> 를 생성된 <code>Image</code> 로 교체한다.</p>
+<p>3)   테스트 코드 작성</p>
+<p>syscall.c 작성</p>
+<div class="highlight"><pre><span></span><code>#include &lt;unistd.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;stdio.h&gt;
+
+#define __NR_my_systemcall 440 // unistd.h에서 정의한 시스템 콜 번호
+
+int main() {
+    int a = 5;
+    int b = 10;
+    long result = syscall(__NR_my_systemcall, a, b);
+
+    printf(&quot;시스템 콜 반환값: %ld\n&quot;, result); // 50 (5 * 10) 출력
+    return 0;
+}
+</code></pre></div>
+<p>4) 컴파일 및 실행</p>
+<div class="highlight"><pre><span></span><code>gcc syscall.c -o syscall
+./syscall
+
+[   37.334351] my_systemcall invoked
+[   37.334361] my_systemcall invoked: a = 3, b = 4, result = 12
+</code></pre></div>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../4.upload/" class="btn btn-neutral float-left" title="4.4 업로드"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../ch04x/1.cboot/" class="btn btn-neutral float-right" title="5.1 초기부팅">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../4.upload/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../ch04x/1.cboot/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

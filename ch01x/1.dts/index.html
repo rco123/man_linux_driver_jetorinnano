@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch01x/1.dts/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>2.1 dts - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "2.1 dts";
+        var mkdocs_page_input_path = "ch01x\\1.dts.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch01x/1.dts/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">2.1 dts</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-dtsdevice-tree-source">1. DTS(Device Tree Source)란?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-dts">2. DTS의 구조</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">1) 루트 노드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">2) 하위 노드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3">3) 속성</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-dts">3. DTS의 역할</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-dts">4. 리눅스 부팅 과정에서의 DTS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-dts">5. DTS의 장점</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-dts">6. DTS 예제</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-dts">7. DTS 관련 도구</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">결론</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">2. DTs</li>
+      <li class="breadcrumb-item active">2.1 dts</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dts">DTS 개요</h1>
+<p>리눅스 부팅 과정에서 **DTS(Device Tree Source)**는 하드웨어 정보를 설명하는 데 사용되는 중요한 파일 형식입니다. DTS는 특히 ARM, PowerPC, RISC-V 등의 아키텍처에서 리눅스 커널이 하드웨어를 인식하고 초기화하는 데 필수적입니다. 아래에서 DTS의 개념, 역할, 그리고 리눅스 부팅 과정에서의 중요성에 대해 설명드리겠습니다.</p>
+<hr />
+<h3 id="1-dtsdevice-tree-source">1. <strong>DTS(Device Tree Source)란?</strong></h3>
+<ul>
+<li><strong>정의</strong>: DTS는 하드웨어 장치의 구성 정보를 텍스트 형식으로 기술한 파일입니다.</li>
+<li><strong>목적</strong>: 리눅스 커널이 하드웨어를 동적으로 인식하고 초기화할 수 있도록 합니다.</li>
+<li><strong>특징</strong>:</li>
+<li>텍스트 기반의 파일 형식입니다.</li>
+<li>하드웨어 플랫폼에 독립적인 방식으로 장치 정보를 제공합니다.</li>
+</ul>
+<hr />
+<h3 id="2-dts">2. <strong>DTS의 구조</strong></h3>
+<p>DTS 파일은 하드웨어의 계층 구조를 트리 형태로 표현합니다. 주요 구성 요소는 다음과 같습니다:</p>
+<h4 id="1">1) <strong>루트 노드</strong></h4>
+<ul>
+<li>전체 하드웨어 플랫폼을 나타냅니다.</li>
+<li>예:
+  <div class="highlight"><pre><span></span><code><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vendor,board-name&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Board&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></li>
+</ul>
+<h4 id="2">2) <strong>하위 노드</strong></h4>
+<ul>
+<li>각 하드웨어 장치(CPU, 메모리, 주변 장치 등)를 나타냅니다.</li>
+<li>예:
+  <div class="highlight"><pre><span></span><code><span class="nf">cpus</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">cpu</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;arm,cortex-a53&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">device_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;cpu&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></li>
+</ul>
+<h4 id="3">3) <strong>속성</strong></h4>
+<ul>
+<li>각 노드는 하드웨어의 세부 정보를 기술하는 속성(property)을 가집니다.</li>
+<li>예:
+  <div class="highlight"><pre><span></span><code><span class="nl">uart0</span><span class="p">:</span><span class="w"> </span><span class="nf">serial</span><span class="o">@</span><span class="mi">1000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ns16550a&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x1000</span><span class="w"> </span><span class="mh">0x100</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">interrupts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="3-dts">3. <strong>DTS의 역할</strong></h3>
+<ul>
+<li><strong>하드웨어 정보 제공</strong>: 리눅스 커널이 하드웨어를 인식하고 초기화하는 데 필요한 정보를 제공합니다.</li>
+<li><strong>플랫폼 독립성</strong>: 동일한 커널 이미지를 다른 하드웨어 플랫폼에서 사용할 수 있도록 합니다.</li>
+<li><strong>동적 구성</strong>: 부팅 시 하드웨어 정보를 동적으로 전달하여 커널이 하드웨어를 자동으로 구성할 수 있게 합니다.</li>
+</ul>
+<hr />
+<h3 id="4-dts">4. <strong>리눅스 부팅 과정에서의 DTS</strong></h3>
+<ol>
+<li><strong>부트로더 단계</strong>:</li>
+<li>부트로더가 DTB를 메모리에 로드합니다.</li>
+<li>
+<p>예: U-Boot에서 <code>load</code> 또는 <code>bootm</code> 명령어를 사용하여 DTB를 로드합니다.</p>
+</li>
+<li>
+<p><strong>커널 단계</strong>:</p>
+</li>
+<li>커널이 DTB를 파싱하여 하드웨어 정보를 읽습니다.</li>
+<li>
+<p>하드웨어 장치를 초기화하고, 필요한 드라이버를 로드합니다.</p>
+</li>
+<li>
+<p><strong>시스템 초기화</strong>:</p>
+</li>
+<li>초기화된 하드웨어를 기반으로 리눅스 시스템이 부팅됩니다.</li>
+</ol>
+<hr />
+<h3 id="5-dts">5. <strong>DTS의 장점</strong></h3>
+<ul>
+<li><strong>하드웨어 독립성</strong>: 동일한 커널을 다양한 하드웨어에서 사용할 수 있습니다.</li>
+<li><strong>유연성</strong>: 하드웨어 변경 시 커널 소스 코드를 수정하지 않고 DTS만 수정하면 됩니다.</li>
+<li><strong>명확성</strong>: 하드웨어 정보가 구조화되어 있어 이해하기 쉽습니다.</li>
+</ul>
+<hr />
+<h3 id="6-dts">6. <strong>DTS 예제</strong></h3>
+<p>다음은 간단한 DTS 파일 예제입니다:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">/dts-v1/</span><span class="p">;</span>
+
+<span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vendor,board-name&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Board&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nf">cpus</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nf">cpu</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;arm,cortex-a53&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="kr">device_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;cpu&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">memory</span><span class="o">@</span><span class="mi">80000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">device_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;memory&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x80000000</span><span class="w"> </span><span class="mh">0x40000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nl">uart0</span><span class="p">:</span><span class="w"> </span><span class="nf">serial</span><span class="o">@</span><span class="mi">1000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ns16550a&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x1000</span><span class="w"> </span><span class="mh">0x100</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">interrupts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x0</span><span class="w"> </span><span class="mh">0x1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="7-dts">7. <strong>DTS 관련 도구</strong></h3>
+<ul>
+<li><strong>dtc(Device Tree Compiler)</strong>: DTS를 DTB로 컴파일하는 도구입니다.</li>
+<li><strong>fdtdump</strong>: DTB 파일을 분석하고 내용을 출력하는 도구입니다.</li>
+<li><strong>dtbocfg</strong>: Device Tree Overlay를 적용하는 도구입니다.</li>
+</ul>
+<hr />
+<h3 id="_1">결론</h3>
+<p>DTS는 리눅스 커널이 하드웨어를 인식하고 초기화하는 데 필수적인 파일 형식입니다. 특히 ARM, PowerPC, RISC-V 등의 아키텍처에서 하드웨어 정보를 구조화된 방식으로 제공하여, 커널의 플랫폼 독립성과 유연성을 높이는 데 기여합니다. DTS 파일은 컴파일을 통해 DTB로 변환되며, 부트로더와 커널이 이를 사용하여 시스템을 초기화합니다.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../ch00x/3.app/" class="btn btn-neutral float-left" title="1.3 app"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../2.dts_compile/" class="btn btn-neutral float-right" title="2.2 dts 컴파일">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../ch00x/3.app/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../2.dts_compile/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

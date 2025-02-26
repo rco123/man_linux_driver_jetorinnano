@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch04x/3.hello_mod/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>5.3 hello 모듈 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.3 hello \ubaa8\ub4c8";
+        var mkdocs_page_input_path = "ch04x\\3.hello_mod.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch04x/3.hello_mod/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.3 hello 모듈</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-helloc">1. hello.c 파일 작성</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-makefile">2. Makefile 작성</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. 컴파일</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4">4. 모듈 로드</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5">5. 모듈 제거</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-gcc">6. gcc 를 이용한 컴파일</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7">7. 테스트 환경</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8">8. 추가 참고</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">5. 드라이브 I</li>
+      <li class="breadcrumb-item active">5.3 hello 모듈</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="hello">hello 모듈</h1>
+<p>리눅스 드라이버를 작성하려면 Linux 커널 모듈을 작성해야 합니다. 간단한 hello 모듈을 예제로 만들어 보겠습니다. 이 모듈은 커널 로그에 메시지를 출력하고, 로드 및 언로드 시점을 표시합니다.</p>
+<p>리눅스 드라이버를 작성하려면 Linux 커널 모듈을 작성해야 합니다. 간단한 <code>hello</code> 모듈을 예제로 만들어 보겠습니다. 이 모듈은 **커널 로그**에 메시지를 출력하고, 로드 및 언로드 시점을 표시합니다.</p>
+<hr />
+<h3 id="1-helloc">1. <strong><code>hello.c</code> 파일 작성</strong></h3>
+<p>아래 코드는 간단한 Linux 커널 모듈입니다.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/init.h&gt;</span><span class="c1">    // init and exit macros</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span><span class="c1">  // module macros</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="c1">  // printk</span>
+
+<span class="c1">// 모듈 정보</span>
+<span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span>
+<span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span>
+<span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;A simple Hello World Kernel Module&quot;</span><span class="p">);</span>
+<span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&quot;1.0&quot;</span><span class="p">);</span>
+
+<span class="c1">// 모듈 초기화 함수</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Hello, Kernel World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 성공적으로 로드되었음을 의미</span>
+<span class="p">}</span>
+
+<span class="c1">// 모듈 종료 함수</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Goodbye, Kernel World!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 초기화 및 종료 함수 등록</span>
+<span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h3 id="2-makefile">2. <strong><code>Makefile</code> 작성</strong></h3>
+<p>커널 모듈을 빌드하려면 <code>Makefile</code>이 필요합니다. 다음은 해당 모듈에 대한 간단한 <code>Makefile</code> 예제입니다.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">obj-m</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>hello.o
+
+<span class="nf">all</span><span class="o">:</span>
+<span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build<span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span>make<span class="w"> </span>-C<span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build<span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>clean
+</code></pre></div>
+<hr />
+<h3 id="3">3. <strong>컴파일</strong></h3>
+<p>1) 파일 구조:
+<div class="highlight"><pre><span></span><code>hello_module/
+├── Makefile
+└── hello.c
+</code></pre></div></p>
+<p>2) 터미널에서 다음 명령어를 실행합니다:</p>
+<pre><code>make 명령어를 수행하여 커널 모듈 생성
+</code></pre>
+<p><div class="highlight"><pre><span></span><code>jetson@ubuntu:~/workspace/driver$<span class="w"> </span>make
+make<span class="w"> </span>-C<span class="w"> </span>/lib/modules/5.10.216-tegra/build<span class="w"> </span><span class="nv">M</span><span class="o">=</span>/home/jetson/workspace/driver<span class="w"> </span>modules
+make<span class="o">[</span><span class="m">1</span><span class="o">]</span>:<span class="w"> </span>Entering<span class="w"> </span>directory<span class="w"> </span><span class="s1">&#39;/usr/src/linux-headers-5.10.216-tegra-ubuntu20.04_aarch64/kernel-5.10&#39;</span>
+CC<span class="w"> </span><span class="o">[</span>M<span class="o">]</span><span class="w">  </span>/home/jetson/workspace/driver/hello.o
+MODPOST<span class="w"> </span>/home/jetson/workspace/driver/Module.symvers
+CC<span class="w"> </span><span class="o">[</span>M<span class="o">]</span><span class="w">  </span>/home/jetson/workspace/driver/hello.mod.o
+LD<span class="w"> </span><span class="o">[</span>M<span class="o">]</span><span class="w">  </span>/home/jetson/workspace/driver/hello.ko
+make<span class="o">[</span><span class="m">1</span><span class="o">]</span>:<span class="w"> </span>Leaving<span class="w"> </span>directory<span class="w"> </span><span class="s1">&#39;/usr/src/linux-headers-5.10.216-tegra-ubuntu20.04_aarch64/kernel-5.10&#39;</span>
+jetson@ubuntu:~/workspace/driver$<span class="w"> </span>ls
+hello.c<span class="w">  </span>hello.ko<span class="w">  </span>hello.mod<span class="w">  </span>hello.mod.c<span class="w">  </span>hello.mod.o<span class="w">  </span>hello.o<span class="w">  </span>Makefile<span class="w">  </span>modules.order<span class="w">  </span>Module.symvers
+jetson@ubuntu:~/workspace/driver$
+</code></pre></div>
+   성공하면 <code>hello.ko</code> 파일이 생성됩니다. 이는 커널 모듈 바이너리입니다.</p>
+<hr />
+<h3 id="4">4. <strong>모듈 로드</strong></h3>
+<p>1) <strong>모듈 삽입</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
+</code></pre></div>
+<p>출력 예:
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~/workspace/driver$ sudo insmod hello.ko
+jetson@ubuntu:~/workspace/driver$ lsmod | head -n 10
+Module                  Size  Used by
+hello                  16384  0
+fuse                  118784  5
+nvidia_modeset       1093632  6
+xt_conntrack           16384  1
+xt_MASQUERADE          16384  1
+nf_conntrack_netlink    45056  0
+nfnetlink              20480  2 nf_conntrack_netlink
+iptable_nat            16384  1
+nf_nat                 45056  2 iptable_nat,xt_MASQUERADE
+jetson@ubuntu:~/workspace/driver$ ^C
+jetson@ubuntu:~/workspace/driver$
+</code></pre></div></p>
+<p>2) <strong>커널 로그 확인</strong></p>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
+</code></pre></div>
+출력 예:
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~/workspace/driver$ sudo dmesg | tail
+[ 2190.003966] logitech-hidpp-device 0003:046D:404D.0006: Can not get the protocol version.
+[ 2411.172963] logitech-hidpp-device 0003:046D:404D.0006: HID++ 4.1 device connected.
+[ 2671.828217] ACK 04 d4
+[ 2671.829197] ACK 04 d4
+[ 2671.937809] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+[ 2681.475557] ACK 04 d4
+[ 2681.476624] ACK 04 d4
+[ 2681.480964] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+[ 4495.765252] hello: module verification failed: signature and/or required key missing - tainting kernel
+[ 4495.775359] Hello, Kernel World!
+</code></pre></div></p>
+<hr />
+<h3 id="5">5. <strong>모듈 제거</strong></h3>
+<p>1) <strong>모듈 제거</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+</code></pre></div>
+<p>2) <strong>커널 로그 확인</strong></p>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail
+</code></pre></div>
+출력 예:
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~/workspace/driver$ sudo rmmod hello
+jetson@ubuntu:~/workspace/driver$ sudo dmesg | tail
+[ 2411.172963] logitech-hidpp-device 0003:046D:404D.0006: HID++ 4.1 device connected.
+[ 2671.828217] ACK 04 d4
+[ 2671.829197] ACK 04 d4
+[ 2671.937809] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+[ 2681.475557] ACK 04 d4
+[ 2681.476624] ACK 04 d4
+[ 2681.480964] IPv6: ADDRCONF(NETDEV_CHANGE): wlan0: link becomes ready
+[ 4495.765252] hello: module verification failed: signature and/or required key missing - tainting kernel
+[ 4495.775359] Hello, Kernel World!
+[ 4613.401947] Goodbye, Kernel World!
+</code></pre></div></p>
+<hr />
+<h3 id="6-gcc">6. <strong>gcc 를 이용한 컴파일</strong></h3>
+<p><code>gcc</code>를 사용하여 Linux 커널 모듈을 컴파일하려면 커널 빌드 시스템을 거쳐야 하기 때문에 일반적으로 단순히 <code>gcc</code>로 직접 컴파일하지는 않습니다. 하지만 커널 빌드 시스템을 사용하지 않고 <code>gcc</code>로 컴파일할 수 있는 방법을 소개합니다.</p>
+<hr />
+<p>1) <strong>커널 헤더 설치 확인</strong>
+<code>gcc</code>로 컴파일하려면 커널 헤더 파일이 필요합니다. 아래 명령으로 설치 여부를 확인하거나 설치합니다.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>
+</code></pre></div>
+<p>2) <strong><code>hello.c</code> 코드 작성</strong></p>
+<p>Jetson Orin Nano의 작업 디렉토리에서 <code>hello.c</code> 파일을 작성합니다:</p>
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>hello.c
+</code></pre></div>
+<p>주어진 코드를 복사하여 붙여넣고 저장합니다.</p>
+<p>3) <strong>커널 모듈 컴파일</strong></p>
+<p>커널 모듈 컴파일 시 필요한 플래그를 포함하여 <code>gcc</code>로 컴파일합니다.</p>
+<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w"> </span>hello.c<span class="w"> </span>-I/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/build/include
+</code></pre></div>
+<p>설명:</p>
+<ul>
+<li><code>-Wall -Wextra</code>: 모든 경고 메시지를 활성화합니다.</li>
+<li><code>-c</code>: 개체 파일만 생성합니다.</li>
+<li><code>-o hello.o</code>: 출력 파일 이름을 지정합니다.</li>
+<li><code>-I</code>: 커널 헤더 파일 경로를 지정합니다.</li>
+</ul>
+<p>4) <strong>링킹하여 <code>.ko</code> 파일 생성</strong></p>
+<div class="highlight"><pre><span></span><code>ld<span class="w"> </span>-r<span class="w"> </span>-o<span class="w"> </span>hello.ko<span class="w"> </span>hello.o
+</code></pre></div>
+<hr />
+<h3 id="7">7. <strong>테스트 환경</strong></h3>
+<ul>
+<li>
+<p>Linux 커널 헤더가 설치되어 있어야 합니다. 다음 명령으로 확인 및 설치:
+  <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>테스트는 root 권한으로 수행해야 합니다(<code>sudo</code> 사용).</p>
+</li>
+</ul>
+<hr />
+<h3 id="8">8. <strong>추가 참고</strong></h3>
+<ul>
+<li><code>printk()</code> : 함수는 로그 레벨을 지정합니다:</li>
+<li><code>KERN_INFO</code>: 정보 메시지.</li>
+<li><code>KERN_WARNING</code>: 경고 메시지.</li>
+<li><code>KERN_ERR</code>: 에러 메시지.</li>
+</ul>
+<p>로그 레벨에 따라 메시지가 <code>dmesg</code>나 로그 파일에 표시됩니다. 실습 후 생성된 <code>.ko</code> 파일은 필요하지 않으면 제거하세요.</p>
+<div style="height:60px"></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../2.dtb_add/" class="btn btn-neutral float-left" title="5.2 dtb 추가"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../4.hello_dtb/" class="btn btn-neutral float-right" title="5.4 hello 설정데이터">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../2.dtb_add/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../4.hello_dtb/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

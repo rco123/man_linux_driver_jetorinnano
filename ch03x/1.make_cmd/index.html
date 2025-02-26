@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch03x/1.make_cmd/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>4.1 make - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4.1 make";
+        var mkdocs_page_input_path = "ch03x\\1.make_cmd.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch03x/1.make_cmd/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.1 make</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 컴멘드 요약</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 실행문 간소화</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1_1">1) 모듈 설치</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-shell">3. shell 명령어 작성</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4">4. 환경 변수 상세</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-kerner_root-sdk_root">1️⃣ KERNER_ROOT &amp; SDK_ROOT</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-cross_compile_aarch64_path-cross_compile_aarch64">2️⃣ CROSS_COMPILE_AARCH64_PATH &amp; CROSS_COMPILE_AARCH64</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alias">경로 이동을 위한 alias 설정</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#3-cdk-cds">3️⃣ cdk &amp; cds</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alias_1">커널 빌드를 위한 alias 설정</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#4-mkclean">4️⃣ mkclean</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-mkproper">5️⃣ mkproper</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-mkconfig">6️⃣ mkconfig</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7-mkmanuconfig">7️⃣ mkmanuconfig</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alias_2">커널 이미지 및 모듈 빌드 alias</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#8-mkimg">8️⃣ mkimg</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#9-mkdtb">9️⃣ mkdtb</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mkmod">🔟 mkmod</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#11-mkmodo">1️⃣1️⃣ mkmodo</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">4. 커널</li>
+      <li class="breadcrumb-item active">4.1 make</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="make">make 실행문장</h1>
+<h3 id="1"><strong>1. 컴멘드 요약</strong></h3>
+<p>아래와 같은 명령을 수행하여, 커널을 컴파일 할 수가 있다.</p>
+<div class="highlight"><pre><span></span><code>Building kernel-5.10 sources
+Using output directory: kernel_out
+
+make ARCH=arm64 -C /path/to/script/kernel/kernel-5.10/ O=kernel_out  clean
+make ARCH=arm64 -C /path/to/script/kernel/kernel-5.10/ O=kernel_out mrproper
+
+Executing: make -C /path/to/script/kernel/kernel-5.10/ ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=/path/to/aarch64-toolchain/bin/aarch64-buildroot-linux-gnu- O=kernel_out tegra_defconfig
+[Output from `make` command applying `tegra_defconfig`]
+
+Executing: make -C /path/to/script/kernel/kernel-5.10/ ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=/path/to/aarch64-toolchain/bin/aarch64-buildroot-linux-gnu- O=kernel_out -j8 --output-sync=target Image
+[Output from `make` command compiling the kernel image]
+
+Executing: make -C /path/to/script/kernel/kernel-5.10/ ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=/path/to/aarch64-toolchain/bin/aarch64-buildroot-linux-gnu- O=kernel_out -j8 --output-sync=target dtbs
+[Output from `make` command compiling device tree blobs]
+
+Executing: make -C /path/to/script/kernel/kernel-5.10/ ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=/path/to/aarch64-toolchain/bin/aarch64-buildroot-linux-gnu- O=kernel_out -j8 --output-sync=target modules
+[Output from `make` command compiling modules]
+
+Verifying kernel image at kernel_out/arch/arm64/boot/Image
+Kernel sources compiled successfully.
+</code></pre></div>
+<hr />
+<h3 id="2">2. 실행문 간소화</h3>
+<div class="highlight"><pre><span></span><code>make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} O=kout -j8 --output-sync=target V=1 Image
+make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} O=kout -j8 --output-sync=target V=1 dtbs
+make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} O=kout -j8 --output-sync=target V=1 modules
+</code></pre></div>
+<h4 id="1_1">1) 모듈 설치</h4>
+<p>컴파일된 모듈만 다른 디렉토리(m_root) 로 저장하기 위해서 다음 명령어를 수행한다.
+<div class="highlight"><pre><span></span><code>make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} O=kout modules_install INSTALL_MOD_PATH=$PWD/m_root
+</code></pre></div></p>
+<h3 id="3-shell">3. shell 명령어 작성</h3>
+<p>아래 내용을 .bashrc 파일에 추가하여 준다.</p>
+<div class="highlight"><pre><span></span><code>export KERNEL_ROOT=&#39;/home/nano/ksrc/Linux_for_Tegra/source/public/kernel/kernel-5.10&#39;
+export SDK_ROOT=&#39;/home/nano/nvidia/nvidia_sdk/JetPack_5.1.4_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra&#39;
+
+export CROSS_COMPILE_AARCH64_PATH=/home/nano/l4t-gcc
+export CROSS_COMPILE_AARCH64=/home/nano/l4t-gcc/bin/aarch64-buildroot-linux-gnu-
+
+alias cdk=&quot;cd ${KERNEL_ROOT}&quot;
+alias cds=&quot;cd ${SDK_ROOT}&quot;
+
+alias mkclean=&quot;make ARCH=arm64 clean&quot;
+alias mkproper=&quot;make ARCH=arm64 mrproper&quot;
+
+alias mkconfig=&quot;make ARCH=arm64 defconfig&quot;
+alias mkmanuconfig=&quot;make ARCH=arm64 menuconfig&quot;
+
+alias mkimg=&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} -j8 --output-sync=target V=1 Image&quot;
+alias mkdtb=&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} -j8 --output-sync=target V=1 dtbs&quot;
+alias mkmod=&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} -j8 --output-sync=target V=1 modules&quot;
+
+alias mkmodi=&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=${CROSS_COMPILE_AARCH64} modules_install INSTALL_MOD_PATH=$SDK_ROOT/rootfs&quot;
+
+alias mkclean=&quot;make ARCH=arm64 clean&quot;
+alias mkproper=&quot;make ARCH=arm64 mrproper&quot;
+
+alias cpimg=&quot;sudo cp $KERNEL_ROOT/arch/arm64/boot/Image $SDK_ROOT/kernel/Image &amp;&amp; \
+    sudo cp $KERNEL_ROOT/arch/arm64/boot/dts/nvidia/* $SDK_ROOT/kernel/dtb/&quot;
+</code></pre></div>
+<hr />
+<h3 id="4"><strong>4. 환경 변수 상세</strong></h3>
+<p>이 설정 파일은 <strong>NVIDIA Jetson Orin Nano</strong> 환경에서 커널을 빌드하고 관리하는 다양한 명령어를 alias로 설정한 것입니다.<br />
+이를 통해 반복적인 커널 빌드 작업을 더욱 효율적으로 수행할 수 있습니다! 🚀</p>
+<h4 id="1-kerner_root-sdk_root">1️⃣ <code>KERNER_ROOT</code> &amp; <code>SDK_ROOT</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KERNER_ROOT</span><span class="o">=</span><span class="s1">&#39;/home/nano/ksrc/Linux_for_Tegra/source/public/kernel/kernel-5.10&#39;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SDK_ROOT</span><span class="o">=</span><span class="s1">&#39;/home/nano/nvidia/nvidia_sdk/JetPack_5.1.4_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra&#39;</span>
+</code></pre></div>
+- <code>KERNER_ROOT</code>: 커널 소스 코드가 위치한 경로를 설정합니다.
+- <code>SDK_ROOT</code>: NVIDIA JetPack SDK가 설치된 경로를 설정합니다.</p>
+<h4 id="2-cross_compile_aarch64_path-cross_compile_aarch64">2️⃣ <code>CROSS_COMPILE_AARCH64_PATH</code> &amp; <code>CROSS_COMPILE_AARCH64</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE_AARCH64_PATH</span><span class="o">=</span>/home/nano/l4t-gcc
+<span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE_AARCH64</span><span class="o">=</span>/home/nano/l4t-gcc/bin/aarch64-buildroot-linux-gnu-
+</code></pre></div>
+- <code>CROSS_COMPILE_AARCH64_PATH</code>: 크로스 컴파일러가 설치된 경로를 설정합니다.
+- <code>CROSS_COMPILE_AARCH64</code>: <code>aarch64</code> 아키텍처의 크로스 컴파일러 실행 파일을 지정합니다.</p>
+<hr />
+<h3 id="alias"><strong>경로 이동을 위한 alias 설정</strong></h3>
+<h4 id="3-cdk-cds">3️⃣ <code>cdk</code> &amp; <code>cds</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">cdk</span><span class="o">=</span><span class="s2">&quot;cd </span><span class="si">${</span><span class="nv">KERNER_ROOT</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cds</span><span class="o">=</span><span class="s2">&quot;cd </span><span class="si">${</span><span class="nv">SDK_ROOT</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+- <code>cdk</code>: <code>KERNER_ROOT</code> 디렉터리로 빠르게 이동하는 명령어입니다.
+- <code>cds</code>: <code>SDK_ROOT</code> 디렉터리로 빠르게 이동하는 명령어입니다.</p>
+<hr />
+<h3 id="alias_1"><strong>커널 빌드를 위한 alias 설정</strong></h3>
+<h4 id="4-mkclean">4️⃣ <code>mkclean</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkclean</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 clean&quot;</span>
+</code></pre></div>
+- 커널 빌드 디렉토리를 정리하여 불필요한 파일을 제거합니다.</p>
+<h4 id="5-mkproper">5️⃣ <code>mkproper</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkproper</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 mrproper&quot;</span>
+</code></pre></div>
+- <code>mkclean</code>보다 더 철저하게 정리하며, <code>.config</code> 파일과 빌드 아티팩트도 제거합니다.</p>
+<h4 id="6-mkconfig">6️⃣ <code>mkconfig</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkconfig</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 defconfig&quot;</span>
+</code></pre></div>
+- 기본적인 커널 설정 파일(<code>defconfig</code>)을 생성합니다.</p>
+<h4 id="7-mkmanuconfig">7️⃣ <code>mkmanuconfig</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkmanuconfig</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 menuconfig&quot;</span>
+</code></pre></div>
+- 커널 설정을 GUI 방식으로 변경할 수 있도록 메뉴 기반의 설정 창을 엽니다.</p>
+<hr />
+<h3 id="alias_2"><strong>커널 이미지 및 모듈 빌드 alias</strong></h3>
+<h4 id="8-mkimg">8️⃣ <code>mkimg</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkimg</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=</span><span class="si">${</span><span class="nv">CROSS_COMPILE_AARCH64</span><span class="si">}</span><span class="s2"> -j8 --output-sync=target V=1 Image&quot;</span>
+</code></pre></div>
+- Tegra용 커널 이미지(<code>Image</code>)를 빌드하는 명령어입니다.
+- <code>-j8</code>: 8개의 코어를 사용하여 빌드 속도를 향상합니다.</p>
+<h4 id="9-mkdtb">9️⃣ <code>mkdtb</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkdtb</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=</span><span class="si">${</span><span class="nv">CROSS_COMPILE_AARCH64</span><span class="si">}</span><span class="s2"> -j8 --output-sync=target V=1 dtbs&quot;</span>
+</code></pre></div>
+- <strong>디바이스 트리 바이너리(DTB, Device Tree Blob)</strong> 파일을 생성하는 명령어입니다.</p>
+<h4 id="mkmod">🔟 <code>mkmod</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkmod</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=</span><span class="si">${</span><span class="nv">CROSS_COMPILE_AARCH64</span><span class="si">}</span><span class="s2"> -j8 --output-sync=target V=1 modules&quot;</span>
+</code></pre></div>
+- 커널 모듈을 빌드하는 명령어입니다.</p>
+<h4 id="11-mkmodo">1️⃣1️⃣ <code>mkmodo</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">mkmodo</span><span class="o">=</span><span class="s2">&quot;make ARCH=arm64 LOCALVERSION=-tegra CROSS_COMPILE=</span><span class="si">${</span><span class="nv">CROSS_COMPILE_AARCH64</span><span class="si">}</span><span class="s2"> modules_install INSTALL_MOD_PATH=</span><span class="nv">$PWD</span><span class="s2">/m_root&quot;</span>
+</code></pre></div>
+- 빌드된 커널 모듈을 <code>m_root</code> 디렉터리에 설치하는 명령어입니다.</p>
+<hr />
+<p>✅ <strong>요약</strong>
+이 설정 파일은 <strong>NVIDIA Jetson Orin Nano</strong> 환경에서 커널을 빌드하고 관리하는 다양한 명령어를 alias로 설정한 것입니다.<br />
+이를 통해 반복적인 커널 빌드 작업을 더욱 효율적으로 수행할 수 있습니다! 🚀</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../ch02x/2.download/" class="btn btn-neutral float-left" title="3.2 다운로드"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../2.compile/" class="btn btn-neutral float-right" title="4.2 컴파일">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../ch02x/2.download/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../2.compile/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

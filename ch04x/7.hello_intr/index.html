@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch04x/7.hello_intr/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>5.7 hello 인터럽터 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.7 hello \uc778\ud130\ub7fd\ud130";
+        var mkdocs_page_input_path = "ch04x\\7.hello_intr.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch04x/7.hello_intr/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.7 hello 인터럽터</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-gpio">1. GPIO 번호 확인</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 커널 모듈 작성</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#helloc">🔹 hello.c 작성</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. 모듈 컴파일 및 실행</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#makefile">🔹 Makefile 작성</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">🔹 컴파일</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">🔹 모듈 로드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">🔹 모듈 제거</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">🔹 로그 확인</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">5. 드라이브 I</li>
+      <li class="breadcrumb-item active">5.7 hello 인터럽터</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gpio">GPIO 인터럽터</h1>
+<p>헤드핀의 40핀에 대하여 인터럽터 동작을 확인하여 본다. PI.00에 해당하는 GPIO 번호를 확인하고, LOW → HIGH 변화를 감지하여 인터럽트를 발생시키는 커널 모듈작성한다. 이 코드는 request_irq()를 사용하여 인터럽트 핸들러를 등록하고, gpio_to_irq(399)을 통해 GPIO 399번에 대한 인터럽트를 설정합니다.커널 모듈을 작성하여 삽입 시 ON, 제거 시 OFF하도록 하는 과정을 실행합니다.</p>
+<hr />
+<h3 id="1-gpio">1. GPIO 번호 확인</h3>
+<p>1) 헤드핀의 핀 이름 확인</p>
+<p>Jetson Orin Nano Developer Kit Carrier Board Specification ( SP-11324-001_v1.3 )에서 핀에 대한 정보를 확인한다. </p>
+<p><center>
+<img  src="../../ch04x/imgs/pinno01.png"  width="600"  height="400" /> 
+</center></p>
+<p>40번 핀에 연결된 물리적 핀의 이름은 PI.00 으로 되어 있다. 40번 핀에 ON OFF를 할수 있는 와이어점퍼를 연결한다..</p>
+<p>2) 할당된 GPIO 번호 확인</p>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/gpio
+</code></pre></div>
+이 명령을 실행하면 현재 시스템에서 사용 가능한 GPIO 리스트가 출력됩니다. PI.00에 할당된 GPIO 번호를 확인해야 합니다.</p>
+<p>예를 들어, PI.00이 <code>gpiochip0</code>의 399번 핀이라면, 해당 GPIO 번호는 <code>399</code>이 됩니다.</p>
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~$ sudo cat /sys/kernel/debug/gpio
+[sudo] password for jetson:
+
+ gpio-395 (PH.04               )
+ gpio-396 (PH.05               )
+ gpio-397 (PH.06               )
+ gpio-398 (PH.07               )
+ gpio-399 (PI.00               )
+ gpio-400 (PI.01               )
+ gpio-401 (PI.02               )
+ gpio-402 (PI.03               )
+ gpio-403 (PI.04               )
+ gpio-404 (PI.05               )
+</code></pre></div>
+<hr />
+<h3 id="2">2. 커널 모듈 작성</h3>
+<p>아래 커널 모듈은 <code>gpio_number</code> 변수에 확인한 GPIO 번호를 설정하여, 모듈을 삽입하면 인터럽터가 되도록 설정합니다.</p>
+<h4 id="helloc">🔹 <code>hello.c</code> 작성</h4>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/interrupt.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/irq.h&gt;</span>
+
+<span class="cp">#define GPIO_NUM 399</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">irq_number</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">irqreturn_t</span><span class="w"> </span><span class="nf">gpio_irq_handler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">irq</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dev_id</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">gpio_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_get_value</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span><span class="w"> </span><span class="c1">// GPIO 상태 확인</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;GPIO %d Interrupt Occurred! (LOW -&gt; HIGH), state: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">,</span><span class="w"> </span><span class="n">gpio_state</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">IRQ_HANDLED</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">gpio_is_valid</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;Invalid GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_request</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpio_399&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;Failed to request GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_direction_input</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;Failed to set GPIO %d as input</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">irq_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_to_irq</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">irq_number</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;Failed to get IRQ for GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">irq_number</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;GPIO %d assigned to IRQ %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">,</span><span class="w"> </span><span class="n">irq_number</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request_irq</span><span class="p">(</span><span class="n">irq_number</span><span class="p">,</span><span class="w"> </span><span class="n">gpio_irq_handler</span><span class="p">,</span><span class="w"> </span><span class="n">IRQF_TRIGGER_FALLING</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IRQF_TRIGGER_RISING</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gpio_399_irq&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;Failed to request IRQ %d for GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">irq_number</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;GPIO %d interrupt initialized successfully</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">free_irq</span><span class="p">(</span><span class="n">irq_number</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;GPIO %d interrupt module removed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUM</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+
+<span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span>
+<span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span>
+<span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;GPIO 399 Interrupt Handler (LOW to HIGH)&quot;</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h3 id="3">3. 모듈 컴파일 및 실행</h3>
+<h4 id="makefile">🔹 <code>Makefile</code> 작성</h4>
+<div class="highlight"><pre><span></span><code><span class="nv">obj-m</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>hello.o
+
+<span class="nv">KDIR</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build
+<span class="nv">PWD</span><span class="w">  </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>
+
+<span class="nf">all</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>clean
+</code></pre></div>
+<h4 id="_1">🔹 컴파일</h4>
+<div class="highlight"><pre><span></span><code>make
+</code></pre></div>
+<h4 id="_2">🔹 모듈 로드</h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
+</code></pre></div>
+<h4 id="_3">🔹 모듈 제거</h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+</code></pre></div>
+<h4 id="_4">🔹 로그 확인</h4>
+<div class="highlight"><pre><span></span><code>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+<p>이렇게 하면 모듈을 삽입할 때 GPIO가 HIGH, 제거할 때 LOW로 설정됩니다.</p>
+<div class="highlight"><pre><span></span><code>Computed Hardware IRQ: 51
+[19401.484588] Interrupt Type: 0
+[19401.484589] tegra186_gpio_irq_domain_translate: Exiting
+[19401.484590] GPIO 399 assigned to IRQ 297
+[19401.484615] GPIO 399 interrupt initialized successfully
+[19425.650741] tegra186_gpio_irq: Entered
+[19425.650752] GPIO IRQ Descriptor: 00000000e3f5684e
+[19425.650757] GPIO Controller: 00000000626a38bf
+[19425.650761] IRQ Domain: 000000004d909b04
+[19425.650765] IRQ Chip: 000000000166b4db
+[19425.650769] Parent IRQ: 192
+
+[19432.128416] tegra186_gpio_irq: Entered
+[19432.128429] GPIO IRQ Descriptor: 00000000e3f5684e
+[19432.128432] GPIO Controller: 00000000626a38bf
+[19432.128435] IRQ Domain: 000000004d909b04
+[19432.128438] IRQ Chip: 000000000166b4db
+[19432.128440] Parent IRQ: 192
+[19432.128444] Number of ports: 25
+
+
+Interrupt Status Register Value: 0x0
+[19432.128679] Processing port 8 (Bank: 4, Port: 2, Pins: 7)
+[19432.128681] Base address: 0000000037e9436b
+[19432.128684] gpio-&gt;num_irqs_per_bank:: 8
+[19432.128686] kxval,  4, index 0, gpioirqx = 192
+
+Interrupt Status Register Value: 0x1
+[19432.128711] Mapping IRQ for pin 0: IRQ = 297
+[19432.128714] Handling IRQ 297 for pin 0
+
+***
+[19432.128727] GPIO 399 Interrupt Occurred! (LOW -&gt; HIGH), state: 1
+***
+</code></pre></div>
+<p>등록된 인터럽터 번호
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~/kwork/ee$ cat /proc/interrupts
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>293:          0          0          0          0          0          0      gpio  35 Edge      force-recovery
+294:          0          0          0          0          0          0      gpio  27 Edge      power-key
+296:          0          0          0          0          0          0       MSI 1074266112 Edge      eth0-0
+297:          3          0          0          0          0          0      gpio  51 Edge      gpio_399_irq
+IPI0:     46462     116242      65813      48269      12224      14755       Rescheduling interrupts
+IPI1:     14501       8413       6383       5712      36216      32841       Function call interrupts
+IPI2:         0          0          0          0          0          0       CPU stop interrupts
+</code></pre></div>
+<p>등록된 칩번호:
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~/kwork/ee$ ls  /sys/class/gpio/
+export  gpiochip316  gpiochip348  unexport
+jetson@ubuntu:~/kwork/ee$
+</code></pre></div></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../6.hello_pin/" class="btn btn-neutral float-left" title="5.6 hello 핀"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../ch05x/1.chr_drva/" class="btn btn-neutral float-right" title="6.1 문자드라이브 I">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../6.hello_pin/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../ch05x/1.chr_drva/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

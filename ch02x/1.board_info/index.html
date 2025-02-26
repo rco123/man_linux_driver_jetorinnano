@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch02x/1.board_info/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>3.1 보드정보 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "3.1 \ubcf4\ub4dc\uc815\ubcf4";
+        var mkdocs_page_input_path = "ch02x\\1.board_info.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch02x/1.board_info/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">3.1 보드정보</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#2-jetson-linux">2. Jetson Linux 버전 확인</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 현재 사용 중인 커널 버전 확인</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-jtop">3. jtop 설치 및 확인</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">3. 설치</li>
+      <li class="breadcrumb-item active">3.1 보드정보</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">보드 정보</h1>
+<h3 id="2-jetson-linux">2. Jetson Linux 버전 확인</h3>
+<p>보드에서 사용 중인 **Jetson Linux 버전**을 확인하려면 다음 명령어를 실행하세요:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/nv_tegra_release
+</code></pre></div>
+<p>1) 출력 예시
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:/sys/kernel/config$<span class="w"> </span>cat<span class="w"> </span>/etc/nv_tegra_release
+<span class="c1"># R35 (release), REVISION: 6.0, GCID: 37391689, BOARD: t186ref, EABI: aarch64, DATE: Wed Aug 28 09:12:27 UTC 2024</span>
+jetson@ubuntu:/sys/kernel/config$
+</code></pre></div></p>
+<p>2) 결과 해석</p>
+<ul>
+<li><strong><code>R35</code></strong>: Jetson Linux R35 시리즈를 사용 중임을 나타냅니다.</li>
+<li><strong><code>REVISION: 6.0</code></strong>: 세부 버전 정보 (예: R35.6.0).</li>
+<li><strong><code>BOARD</code></strong>: 사용 중인 보드 모델 (예: <code>t186ref</code>는 Jetson TX2를 의미).</li>
+<li><strong><code>EABI</code></strong>: ABI 정보 (대부분 <code>aarch64</code>).</li>
+<li><strong><code>DATE</code></strong>: 빌드된 날짜.</li>
+</ul>
+<p>현재 Nvidia <strong>Jetson Linux R35.6.0</strong> 리눅스 버젼을 사용하는 것을 표시합니다.</p>
+<p>Jetson Linux 35.6.0 다음 사항을 포함하고 있습니다.</p>
+<ul>
+<li>JetPack 5를 위한 최신 프로덕션 품질 릴리스 </li>
+<li>Linux Kernel 5.10 </li>
+<li>Ubuntu 20.04 기반의 루트 파일 시스템</li>
+<li>UEFI 기반의 부트로더, </li>
+</ul>
+<p>이번 릴리스는 Jetson AGX Orin, Jetson Orin NX, Jetson Orin Nano, Jetson Xavier NX, Jetson AGX Xavier 프로덕션 모듈과 Jetson AGX Orin 개발자 키트, Jetson Orin Nano 개발자 키트, Jetson AGX Xavier 개발자 키트, Jetson Xavier NX 개발자 키트를 모두 지원합니다.</p>
+<p>Jetson Linux 버전을 기준으로 JetPack 버전, 리눅스 커널 버전, 그리고 출시 날짜 정보는 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Jetson Linux 버전</strong></th>
+<th><strong>JetPack 버전</strong></th>
+<th><strong>리눅스 커널 버전</strong></th>
+<th><strong>출시 날짜</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jetson Linux R35.3.1</td>
+<td>JetPack 5.1.1</td>
+<td>5.10</td>
+<td>2023년 6월</td>
+</tr>
+<tr>
+<td>Jetson Linux R35.4.1</td>
+<td>JetPack 5.1.2</td>
+<td>5.10</td>
+<td>2023년 8월</td>
+</tr>
+<tr>
+<td>Jetson Linux R35.5.0</td>
+<td>JetPack 5.1.3</td>
+<td>5.10</td>
+<td>2023년 10월</td>
+</tr>
+<tr>
+<td>Jetson Linux R35.5.1</td>
+<td>JetPack 5.1.4</td>
+<td>5.10</td>
+<td>2024년 1월</td>
+</tr>
+<tr>
+<td>Jetson Linux R35.6.0</td>
+<td>JetPack 5.1.5</td>
+<td>5.10</td>
+<td>2024년 8월</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2">2. 현재 사용 중인 커널 버전 확인</h3>
+<p>터미널에서 다음 명령어를 실행하여 현재 사용 중인 커널 버전을 확인할 수 있습니다:</p>
+<p><div class="highlight"><pre><span></span><code>uname<span class="w"> </span>-r
+
+jetson@ubuntu:~$<span class="w"> </span>uname<span class="w"> </span>-r
+<span class="m">5</span>.10.216-tegra
+
+jetson@ubuntu:~$<span class="w"> </span>uname<span class="w"> </span>-a
+Linux<span class="w"> </span>ubuntu<span class="w"> </span><span class="m">5</span>.10.216-tegra<span class="w"> </span><span class="c1">#1 SMP PREEMPT Sat Jan 18 20:39:52 KST 2025 aarch64 aarch64 aarch64 GNU/Linux</span>
+jetson@ubuntu:~$
+</code></pre></div>
+이 명령어는 현재 실행 중인 리눅스 커널의 버전 정보를 출력합니다.</p>
+<hr />
+<h3 id="3-jtop">3. jtop 설치 및 확인</h3>
+<p><code>jtop</code>은 NVIDIA Jetson 장치의 CPU, GPU, 메모리 사용량 등을 실시간으로 모니터링할 수 있는 편리한 도구입니다. 이를 설치하려면 <code>jetson-stats</code> 패키지를 사용해야 합니다. 설치 방법은 다음과 같습니다:</p>
+<p>1) <strong><code>pip3</code> 설치</strong>: <code>jetson-stats</code>는 Python 패키지 관리자인 <code>pip3</code>를 통해 설치됩니다. 만약 <code>pip3</code>가 설치되어 있지 않다면, 다음 명령어로 설치하세요:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-pip
+</code></pre></div>
+<p>2) <strong><code>jetson-stats</code> 설치</strong>: <code>pip3</code>를 사용하여 <code>jetson-stats</code> 패키지를 설치합니다:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-H<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>jetson-stats
+</code></pre></div>
+<p>3) <strong>시스템 재부팅</strong>: 설치가 완료되면, 시스템을 재부팅하여 변경 사항을 적용합니다:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>reboot
+</code></pre></div>
+<p>4) <strong><code>jtop</code> 실행</strong>: 터미널에서 다음 명령어를 입력하여 <code>jtop</code>을 실행합니다:</p>
+<div class="highlight"><pre><span></span><code>jtop
+</code></pre></div>
+<p>이제 <code>jtop</code>을 통해 Jetson 장치의 리소스 사용 현황을 실시간으로 모니터링할 수 있습니다. </p>
+<p>jtop info 탭에서 현재 사용중인 패키지 정보를 확인할 수 있다.</p>
+<p><center>
+<img  src="../../ch02x/imgs/jtop01.png"  width="600"  height="400" /> 
+</center></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../ch01x/4.dtbo/" class="btn btn-neutral float-left" title="2.4 dtbo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../2.download/" class="btn btn-neutral float-right" title="3.2 다운로드">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../ch01x/4.dtbo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../2.download/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

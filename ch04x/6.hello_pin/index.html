@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch04x/6.hello_pin/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>5.6 hello 핀 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "5.6 hello \ud540";
+        var mkdocs_page_input_path = "ch04x\\6.hello_pin.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch04x/6.hello_pin/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5.6 hello 핀</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-gpio">1. GPIO 번호 확인</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 커널 모듈 작성</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#helloc">🔹 hello.c 작성</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. 모듈 컴파일 및 실행</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#makefile">🔹 Makefile 작성</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">🔹 컴파일</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">🔹 모듈 로드</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">🔹 모듈 제거</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">🔹 로그 확인</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">5. 드라이브 I</li>
+      <li class="breadcrumb-item active">5.6 hello 핀</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gpio">GPIO 번호</h1>
+<p>PAC.06에 해당하는 GPIO 번호를 확인하고, 커널 모듈을 작성하여 삽입 시 ON, 제거 시 OFF하도록 하는 과정을 설명하고 코드를 작성해보겠습니다.</p>
+<hr />
+<h3 id="1-gpio">1. GPIO 번호 확인</h3>
+<p>1) 헤드핀의 핀 이름 확인</p>
+<p>Jetson Orin Nano Developer Kit Carrier Board Specification ( SP-11324-001_v1.3 )에서 핀에 대한 정보를 확인한다. </p>
+<p><center>
+<img  src="../../ch04x/imgs/pinno.png"  width="600"  height="400" /> 
+</center></p>
+<p>7번 핀에 연결된 물리적 핀의 이름은 PAC.06 으로 되어 있다. 7번 핀에 LED를 연결하고, 동작 테스트를 확인한다.</p>
+<p>2) 할당된 GPIO 번호 확인</p>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/sys/kernel/debug/gpio
+</code></pre></div>
+이 명령을 실행하면 현재 시스템에서 사용 가능한 GPIO 리스트가 출력됩니다. PAC.06에 할당된 GPIO 번호를 확인해야 합니다.</p>
+<p>예를 들어, PAC.06이 <code>gpiochip0</code>의 492번 핀이라면, 해당 GPIO 번호는 <code>492</code>이 됩니다.</p>
+<div class="highlight"><pre><span></span><code>jetson@ubuntu:~$ sudo cat /sys/kernel/debug/gpio
+[sudo] password for jetson:
+
+gpiochip0: GPIOs 348-511, parent: platform/2200000.gpio, tegra234-gpio:
+ gpio-348 (PA.00               |fixed-regulators:reg) out lo
+ gpio-349 (PA.01               )
+ gpio-350 (PA.02               )
+ gpio-351 (PA.03               )
+ gpio-352 (PA.04               )
+ gpio-353 (PA.05               )
+ gpio-354 (PA.06               )
+ gpio-355 (PA.07               )
+ gpio-356 (PB.00               )
+
+~~~
+
+ gpio-489 (PAC.03              )
+ gpio-490 (PAC.04              )
+ gpio-491 (PAC.05              )
+ gpio-492 (PAC.06              )
+ gpio-493 (PAC.07              )
+ gpio-494 (PAD.00              )
+ gpio-495 (PAD.01              )
+ gpio-496 (PAD.02              )
+
+~~~
+</code></pre></div>
+<hr />
+<h3 id="2">2. 커널 모듈 작성</h3>
+<p>아래 커널 모듈은 <code>gpio_number</code> 변수에 확인한 GPIO 번호를 설정하여, 모듈을 삽입하면 GPIO가 HIGH(ON), 제거하면 LOW(OFF)로 설정합니다.</p>
+<h4 id="helloc">🔹 <code>hello.c</code> 작성</h4>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/init.h&gt;</span><span class="c1">    // init and exit macros</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span><span class="c1">  // module macros</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="c1">  // printk</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span><span class="c1">    // GPIO 제어를 위한 헤더</span>
+
+<span class="cp">#define GPIO_NUMBER 492  </span><span class="c1">// PAC.06에 해당하는 GPIO 번호</span>
+
+<span class="c1">// 모듈 정보</span>
+<span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span>
+<span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&quot;Your Name&quot;</span><span class="p">);</span>
+<span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&quot;GPIO Control Kernel Module for PAC.06&quot;</span><span class="p">);</span>
+<span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&quot;1.0&quot;</span><span class="p">);</span>
+
+<span class="c1">// 모듈 초기화 함수</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Hello, Kernel World! Initializing GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// GPIO 요청</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_request</span><span class="p">(</span><span class="n">GPIO_NUMBER</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello_gpio&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span><span class="w"> </span><span class="s">&quot;Failed to request GPIO %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// GPIO를 출력으로 설정하고 HIGH로 설정</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio_direction_output</span><span class="p">(</span><span class="n">GPIO_NUMBER</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span><span class="w"> </span><span class="s">&quot;Failed to set GPIO %d as output</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+<span class="w">        </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;GPIO %d set to HIGH</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 모듈 종료 함수</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;Goodbye, Kernel World! Setting GPIO %d to LOW</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// GPIO를 LOW로 설정</span>
+<span class="w">    </span><span class="n">gpio_set_value</span><span class="p">(</span><span class="n">GPIO_NUMBER</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">gpio_free</span><span class="p">(</span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span><span class="w"> </span><span class="s">&quot;GPIO %d set to LOW and freed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_NUMBER</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 초기화 및 종료 함수 등록</span>
+<span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h3 id="3">3. 모듈 컴파일 및 실행</h3>
+<h4 id="makefile">🔹 <code>Makefile</code> 작성</h4>
+<div class="highlight"><pre><span></span><code><span class="nv">obj-m</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>hello.o
+
+<span class="nv">KDIR</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/lib/modules/<span class="k">$(</span>shell<span class="w"> </span>uname<span class="w"> </span>-r<span class="k">)</span>/build
+<span class="nv">PWD</span><span class="w">  </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">pwd</span><span class="k">)</span>
+
+<span class="nf">all</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules
+
+<span class="nf">clean</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>KDIR<span class="k">)</span><span class="w"> </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>clean
+</code></pre></div>
+<h4 id="_1">🔹 컴파일</h4>
+<div class="highlight"><pre><span></span><code>make
+</code></pre></div>
+<h4 id="_2">🔹 모듈 로드</h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>insmod<span class="w"> </span>hello.ko
+</code></pre></div>
+<h4 id="_3">🔹 모듈 제거</h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rmmod<span class="w"> </span>hello
+</code></pre></div>
+<h4 id="_4">🔹 로그 확인</h4>
+<div class="highlight"><pre><span></span><code>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+<p>이렇게 하면 모듈을 삽입할 때 GPIO가 HIGH, 제거할 때 LOW로 설정됩니다.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../5.hello_active/" class="btn btn-neutral float-left" title="5.5 hello 기동"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../7.hello_intr/" class="btn btn-neutral float-right" title="5.7 hello 인터럽터">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../5.hello_active/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../7.hello_intr/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

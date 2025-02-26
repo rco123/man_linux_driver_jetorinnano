@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch03x/2.compile/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>4.2 컴파일 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "4.2 \ucef4\ud30c\uc77c";
+        var mkdocs_page_input_path = "ch03x\\2.compile.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch03x/2.compile/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch02x/2.download/">3.2 다운로드</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">4.2 컴파일</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 컴파일 명령 실행</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. 커널 빌드 과정 및 생성 파일 위치</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-image">1️⃣ 커널 이미지 (Image)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-dtb">2️⃣ 디바이스 트리 바이너리 (DTB)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-modules">3️⃣ 커널 모듈 (modules)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-modules_install">4️⃣ 모듈 설치 (modules_install)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">📌 요약</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">4. 커널</li>
+      <li class="breadcrumb-item active">4.2 컴파일</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">커널 컴파일</h1>
+<h3 id="1">1. 컴파일 명령 실행</h3>
+<ol>
+<li>명령어를 다음 과정대로 수행한다. </li>
+</ol>
+<div class="highlight"><pre><span></span><code>cdk  
+
+mkclean (옵션)
+
+mkproper (옵션)
+
+mkconfig
+
+mkmanuconfig
+
+mkimg
+
+mkdtb
+
+mkmod
+
+mkdir m_root (옵션)
+
+mkmodo (옵션)
+</code></pre></div>
+<h3 id="2"><strong>2. 커널 빌드 과정 및 생성 파일 위치</strong></h3>
+<p>위 명령어를 실행하면 NVIDIA Jetson Orin Nano 환경에서 커널, DTB(Device Tree Blob), 그리고 모듈이 생성됩니다. 각각의 파일이 생성되는 위치는 다음과 같습니다.</p>
+<hr />
+<h4 id="1-image"><strong>1️⃣ 커널 이미지 (<code>Image</code>)</strong></h4>
+<p><div class="highlight"><pre><span></span><code>mkimg
+</code></pre></div>
+- 생성된 파일: <code>Image</code>
+- 저장 위치:<br />
+  <div class="highlight"><pre><span></span><code>${KERNER_ROOT}/arch/arm64/boot/Image
+</code></pre></div>
+- 설명:<br />
+  커널 이미지 파일로, Jetson 보드에서 실행될 **리눅스 커널의 핵심 실행 파일**입니다. Jetson의 부팅 과정에서 로드됩니다.</p>
+<hr />
+<h4 id="2-dtb"><strong>2️⃣ 디바이스 트리 바이너리 (<code>DTB</code>)</strong></h4>
+<p><div class="highlight"><pre><span></span><code>mkdtb
+</code></pre></div>
+- 생성된 파일: <code>*.dtb</code> (Device Tree Blob)
+- 저장 위치:<br />
+  <div class="highlight"><pre><span></span><code>${KERNER_ROOT}/arch/arm64/boot/dts/nvidia/
+</code></pre></div>
+- 설명:<br />
+  DTB 파일은 하드웨어 설정 정보(예: CPU, 메모리, GPIO 등)를 포함하며, Jetson 보드가 부팅될 때 **하드웨어 정보를 커널에 전달하는 역할**을 합니다.</p>
+<hr />
+<h4 id="3-modules"><strong>3️⃣ 커널 모듈 (<code>modules</code>)</strong></h4>
+<p><div class="highlight"><pre><span></span><code>mkmod
+</code></pre></div>
+- 생성된 파일: <code>*.ko</code> (Kernel Object)
+- 저장 위치:<br />
+  <div class="highlight"><pre><span></span><code>${KERNER_ROOT}/drivers/ (각 모듈별 디렉터리)
+</code></pre></div>
+- 설명:<br />
+  커널 모듈(.ko)은 동적으로 로드할 수 있는 커널 기능 확장 파일입니다. 예를 들어, 특정 드라이버를 추가할 때 사용됩니다.</p>
+<hr />
+<h4 id="4-modules_install"><strong>4️⃣ 모듈 설치 (<code>modules_install</code>)</strong></h4>
+<p><div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>m_root<span class="w">  </span>
+mkmodo
+</code></pre></div>
+- 설치된 파일 위치:<br />
+  <div class="highlight"><pre><span></span><code>${KERNER_ROOT}/m_root/lib/modules/$(uname -r)/
+</code></pre></div>
+- 설명:<br />
+  빌드된 모듈을 <code>m_root</code> 폴더에 설치합니다. 이후 Jetson 보드에 복사하여 사용할 수 있습니다.</p>
+<hr />
+<h4 id="_2"><strong>📌 요약</strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>파일 유형</strong></th>
+<th><strong>생성 명령어</strong></th>
+<th><strong>파일 위치</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>커널 이미지 (<code>Image</code>)</td>
+<td><code>mkimg</code></td>
+<td><code>${KERNER_ROOT}/arch/arm64/boot/Image</code></td>
+</tr>
+<tr>
+<td>디바이스 트리 바이너리 (<code>DTB</code>)</td>
+<td><code>mkdtb</code></td>
+<td><code>${KERNER_ROOT}/arch/arm64/boot/dts/nvidia/</code></td>
+</tr>
+<tr>
+<td>커널 모듈 (<code>*.ko</code>)</td>
+<td><code>mkmod</code></td>
+<td><code>${KERNER_ROOT}/drivers/ (각 모듈 디렉터리)</code></td>
+</tr>
+<tr>
+<td>모듈 설치 (<code>modules_install</code>)</td>
+<td><code>mkmodo</code></td>
+<td><code>${KERNER_ROOT}/m_root/lib/modules/$(uname -r)/</code></td>
+</tr>
+</tbody>
+</table>
+<p>✅ 이 과정에서 생성된 파일들은 Jetson 보드의 <code>/boot</code> 또는 <code>/lib/modules/</code>로 복사하여 사용할 수 있습니다! 🚀</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../1.make_cmd/" class="btn btn-neutral float-left" title="4.1 make"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../3.copy/" class="btn btn-neutral float-right" title="4.3 복사">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../1.make_cmd/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../3.copy/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

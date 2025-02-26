@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://rco123.github.io/man_linux_driver_jetson_orin_nano/ch02x/2.download/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>3.2 다운로드 - 리눅스드라이브(Jetson Orin Nano)</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../extra_css/style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "3.2 \ub2e4\uc6b4\ub85c\ub4dc";
+        var mkdocs_page_input_path = "ch02x\\2.download.md";
+        var mkdocs_page_url = "/man_linux_driver_jetson_orin_nano/ch02x/2.download/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 리눅스드라이브(Jetson Orin Nano)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">1. linux</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/1.bash/">1.1 bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/2.cmd/">1.2 cmd</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch00x/3.app/">1.3 app</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">2. DTs</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/1.dts/">2.1 dts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/2.dts_compile/">2.2 dts 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/3.dtb/">2.3 dtb</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch01x/4.dtbo/">2.4 dtbo</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">3. 설치</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../1.board_info/">3.1 보드정보</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">3.2 다운로드</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. 커널 소스 다운로드</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">다운로드 된 파일 설치방법</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-jetpack">2. jetPack 다운로드</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sdk-manager">SDK Manager 다운로드 사이트는 다음과 같다.</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-sdk-manager">3. SDK Manager 사용</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sdk">SDK 설치 및 사용법에 관한 내용을 설명하는 사이트는 다음과 같다.</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4">4. 크로스 컴파일러 다운로드</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4_1">4. 기술문서 다운로드</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">4. 커널</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/1.make_cmd/">4.1 make</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/2.compile/">4.2 컴파일</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/3.copy/">4.3 복사</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/4.upload/">4.4 업로드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch03x/5.syscall/">4.5 시스템콜</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">5. 드라이브 I</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/1.cboot/">5.1 초기부팅</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/2.dtb_add/">5.2 dtb 추가</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/3.hello_mod/">5.3 hello 모듈</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/4.hello_dtb/">5.4 hello 설정데이터</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/5.hello_active/">5.5 hello 기동</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/6.hello_pin/">5.6 hello 핀</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch04x/7.hello_intr/">5.7 hello 인터럽터</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">6. 드라이브 II</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/1.chr_drva/">6.1 문자드라이브 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/2.chr_drvb/">6.1 문자드라이브 II</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/3.chr_drvc/">6.1 문자드라이브 III</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/4.blk_drv/">6.1 블록드라이브</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/5.mmap/">6.1 mmap</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/6.net_drva/">6.1 네트워크 I</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ch05x/7.net_drvb/">6.1 네트워크 II</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">리눅스드라이브(Jetson Orin Nano)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">3. 설치</li>
+      <li class="breadcrumb-item active">3.2 다운로드</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">패키지 다운로드</h1>
+<h3 id="1">1. 커널 소스 다운로드</h3>
+<p>Jetson Orin Nano의 커널 소스는 NVIDIA의 JetPack SDK를 통해 제공됩니다. JetPack은 NVIDIA의 SDK Manager를 통해 설치할 수 있습니다. JetPack에는 부트로더가 포함된 Jetson Linux, Linux 커널, Ubuntu 데스크탑 환경 및 GPU 컴퓨팅, 멀티미디어, 그래픽 및 컴퓨터 비전의 가속화를 위한 완전한 라이브러리 세트가 포함되어 있습니다. 
+VELOG</p>
+<p>JetPack을 설치하려면 NVIDIA의 SDK Manager를 사용해야 합니다. SDK Manager는 NVIDIA의 개발자 웹사이트에서 다운로드할 수 있습니다. 설치 후, SDK Manager를 실행하고 Jetson Orin Nano 보드를 선택한 다음, JetPack을 설치하면 커널 소스도 함께 설치됩니다.</p>
+<p>여기서 다운로드 받는다. </p>
+<p>다운로드 사이트 : 커널  &amp; SDK</p>
+<hr />
+<blockquote>
+<p>🚀 <a href="https://developer.nvidia.com/embedded/jetson-linux-archive">다운로드 링크 : https://developer.nvidia.com/embedded/jetson-linux-archive</a></p>
+</blockquote>
+<hr />
+<p><center>
+<img  src="../../ch02x/imgs/jetsonLinuxArchive.png"  width="600"  height="400" /> 
+</center></p>
+<p>버젼 선택</p>
+<p><center>
+<img  src="../../ch02x/imgs/version01.png"  width="600"  height="200" /> 
+</center></p>
+<p>지정된 사이트로 이동</p>
+<p><center>
+<img  src="../../ch02x/imgs/version02.png"  width="600"  height="400" /> 
+</center></p>
+<p><center>
+<img  src="../../ch02x/imgs/version03.png"  width="600"  height="400" /> 
+</center></p>
+<hr />
+<h4 id="_2">다운로드 된 파일 설치방법</h4>
+<p>1) <strong>Jetson Linux 해당 버전의 소스 파일 다운로드:</strong><br />
+   사용 중인 Jetson Linux 버전에 맞는 소스 파일을 찾아 다운로드합니다.</p>
+<p>2) <strong>압축 해제:</strong><br />
+다운로드한 <code>.tbz2</code> 파일을 다음 명령어로 압축 해제합니다.  </p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xfv<span class="w"> </span>public_sources.tbz2<span class="w"> </span>
+</code></pre></div>
+<p>3) <strong>커널 및 NVIDIA 외부(out-of-tree) 모듈 소스 파일 압축 해제:</strong><br />
+아래 명령어를 실행하여 커널과 관련 모듈 소스를 추출합니다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/ksrc/Linux_for_Tegra/source
+tar<span class="w"> </span>xf<span class="w"> </span>kernel_src.tbz2
+tar<span class="w"> </span>xf<span class="w"> </span>kernel_oot_modules_src.tbz2
+tar<span class="w"> </span>xf<span class="w"> </span>nvidia_kernel_display_driver_source.tbz2
+</code></pre></div>
+<p>이 과정을 거치면 <code>kernel/</code> 하위 디렉터리에 커널 소스가 추출되며, NVIDIA 외부 커널 모듈 소스는 현재 디렉터리에 압축 해제됩니다.</p>
+<hr />
+<h3 id="2-jetpack">2. jetPack 다운로드</h3>
+<p>JetPack에는 부트로더, Linux 커널, Ubuntu 데스크톱 환경을 포함한 Jetson Linux와 GPU 컴퓨팅, 멀티미디어, 그래픽, 컴퓨터 비전 가속을 위한 완전한 라이브러리 세트가 포함되어 있습니다. 또한, 샘플 코드, 문서, 개발자 도구를 호스트 컴퓨터와 개발자 키트 모두에서 사용할 수 있도록 제공하며, DeepStream(스트리밍 비디오 분석), Isaac(로봇 공학), Riva(대화형 AI)와 같은 고수준 SDK를 지원합니다.</p>
+<h4 id="sdk-manager">SDK Manager 다운로드 사이트는 다음과 같다.</h4>
+<blockquote>
+<p>🚀 <a href="https://developer.nvidia.com/embedded/jetpack-archive">Jetpack Archive : https://developer.nvidia.com/embedded/jetpack-archive</a></p>
+</blockquote>
+<p><center>
+<img  src="../../ch02x/imgs/down02.png"  width="600"  height="400" /> 
+</center></p>
+<hr />
+<h3 id="3-sdk-manager">3. SDK Manager 사용</h3>
+<h4 id="sdk">SDK 설치 및 사용법에 관한 내용을 설명하는 사이트는 다음과 같다.</h4>
+<blockquote>
+<p>🚀 <a href="https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html">SDK Manager : https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html</a></p>
+</blockquote>
+<p><center>
+<img  src="../../ch02x/imgs/down03.png"  width="600"  height="400" /> 
+</center></p>
+<hr />
+<div class="highlight"><pre><span></span><code>nano@leno:~/nsdk$ ls
+Jetson_Linux_R35.5.0_aarch64.tbz2 
+
+nano@leno:~/nsdk$ tar xvf Jetson_Linux_R35.5.0_aarch64.tbz2
+
+nano@leno:~/nsdk$ ls
+Jetson_Linux_R35.5.0_aarch64.tbz2  Linux_for_Tegra
+</code></pre></div>
+<h3 id="4">4. 크로스 컴파일러 다운로드</h3>
+<p>1) 사이트에서 파일을 다운로드 한다. </p>
+<p>Bootlin Toolchain gcc 9.3</p>
+<p>파일이름: aarch64--glibc--stable-final.tar.gz</p>
+<hr />
+<blockquote>
+<p>🚀 <a href="https://developer.nvidia.com/embedded/jetson-linux-r3550">https://developer.nvidia.com/embedded/jetson-linux-r3550</a></p>
+</blockquote>
+<hr />
+<p>파일 설치:</p>
+<div class="highlight"><pre><span></span><code>nano@leno:~/l4t-gcc$ tar xvf aarch64--glibc--stable-final.tar.gz
+nano@leno:~/l4t-gcc$ ls
+aarch64-buildroot-linux-gnu  aarch64--glibc--stable-final.tar.gz  bin  etc  include  lib  lib64  libexec  relocate-sdk.sh  share  usr
+nano@leno:~/l4t-gcc$
+</code></pre></div>
+<h3 id="4_1">4. 기술문서 다운로드</h3>
+<blockquote>
+<p>📌 <a href="https://developer.nvidia.com/embedded/downloads">기술문서 : https://developer.nvidia.com/embedded/downloads</a></p>
+</blockquote>
+<p>관련 기술문서를 다운로드 할 수 있다.</p>
+<p><center>
+<img  src="../../ch02x/imgs/down01.png"  width="600"  height="400" /> 
+</center></p>
+<p><br></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../1.board_info/" class="btn btn-neutral float-left" title="3.1 보드정보"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../ch03x/1.make_cmd/" class="btn btn-neutral float-right" title="4.1 make">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../1.board_info/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../ch03x/1.make_cmd/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
